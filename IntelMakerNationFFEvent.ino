@@ -20,6 +20,7 @@ Site Personnel: T. Marsh, R. Eppes
 #ifdef __AVR__
   #include <avr/power.h>
 #endif
+#include "Car.h"
 
 // Motor definitions to make life easier:
 #define MOTOR_A 0
@@ -51,7 +52,9 @@ const byte PROXIMITY = A2; //Analog pin for distance sensed
 // Parameter 3 = pixel type flags, add together as needed:
 //   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(4, LED, NEO_GRB + NEO_KHZ800);
+int NUMPIXELS = 4;
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMPIXELS, LED, NEO_GRB + NEO_KHZ800);
+
 // IMPORTANT: To reduce LED burnout risk, add 0.1 uF capacitor across pixel power leads, 
 // add 50 - 100 Ohm resistor on first pixel's data input
 // Avoid connecting on a live circuit...if you must, connect GND first.
@@ -64,13 +67,13 @@ void setup() {
 // Motor Setup
   setupArdumoto(); 
 // Buzzer Setup
-  setupHorn();
+  setuphorn();
 //RGB LED Setup
   setupLED();
 //Servo Setup
   setupServo();
 
- testHorn();
+ testhorn();
  testLED();
  testServo();
  testProximity();
