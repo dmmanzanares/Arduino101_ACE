@@ -15,12 +15,14 @@ Intel NM Makers: A. Barnes, D. McCulley, D. Manzanares, J. Sholar, R. Mcinnis, B
 Site Personnel: T. Marsh, R. Eppes
 */
 // included libraries
+#include "Car.h"
+#include "CurieIMU.h"
 #include <Servo.h> 
 #include <Adafruit_NeoPixel.h>
 #ifdef __AVR__
   #include <avr/power.h>
 #endif
-#include "Car.h"
+#include <SharpIR.h>
 
 // Motor definitions to make life easier:
 #define MOTOR_A 0
@@ -35,16 +37,16 @@ const byte PWMA = 3;  // PWM control (speed) for motor A
 const byte PWMB = 9; // PWM control (speed) for motor B  NOTE it is pin 11 on the Shield we have to jump 9 and 11 for Arduino 101
 const byte DIRA = 12; // Direction control for motor A
 const byte DIRB = 13; // Direction control for motor B
-const byte ENCA = A0;
-const byte ENCB = A1;
+const byte ENCA = 2;
+const byte ENCB = 8;
 //LED RGB Pin assignments
 const byte LED = 7; // Only a Data pin is required on the addressable RGB LEDs
 //Buzzer Pin assignments
-const byte PWMHORN = 6; // PWM control for horn/buzzer
+const byte PWMBUZZER = 5; // PWM control for horn/buzzer
 //Servo Pin assignments
-const byte PWMSERVO = 5; // PWM control (speed) for servo motor
+const byte PWMSERVO = 6; // PWM control (speed) for servo motor
 //Proximity Pin Assignments
-const byte PROXIMITY = A2; //Analog pin for distance sensed
+const byte PROXIMITY = A0; //Analog pin for distance sensed
 
 // Addressable RGB LED definitions...like a NeoPixel
 // Parameter 1 = number of pixels in strip
@@ -52,9 +54,7 @@ const byte PROXIMITY = A2; //Analog pin for distance sensed
 // Parameter 3 = pixel type flags, add together as needed:
 //   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
-int NUMPIXELS = 4;
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMPIXELS, LED, NEO_GRB + NEO_KHZ800);
-
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(4, LED, NEO_GRB + NEO_KHZ800);
 // IMPORTANT: To reduce LED burnout risk, add 0.1 uF capacitor across pixel power leads, 
 // add 50 - 100 Ohm resistor on first pixel's data input
 // Avoid connecting on a live circuit...if you must, connect GND first.
@@ -63,21 +63,33 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMPIXELS, LED, NEO_GRB + NEO_KHZ800
 Servo myservo;  // create servo object to control a servo  
 int pos = 0;    // variable to store the servo position 
 
+//Encoder definitions
+int encorderAValue=0;
+int encorderBValue=0;
+
 void setup() {
+Serial.begin(9600);
+//Curie Setup
+  setupCurie();
 // Motor Setup
   setupArdumoto(); 
+// Encoder Setup
+  setupEncoders();
 // Buzzer Setup
-  setuphorn();
-//RGB LED Setup
+  setupBuzzer();
+// RGB LED Setup
   setupLED();
-//Servo Setup
+// Servo Setup
   setupServo();
+// Proximity Setup
+  setupProximity();
 
- testhorn();
+ testBuzzer();
  testLED();
  testServo();
  testProximity();
  testArdumoto();
+ testEncoders();
 }
 
 void loop() 

@@ -28,7 +28,6 @@ void setupArdumoto()
   digitalWrite(PWMB, LOW);
   digitalWrite(DIRA, LOW);
   digitalWrite(DIRB, LOW);
-  digitalWrite(PWMHORN, LOW);
 }
 
 void testArdumoto()

@@ -1,8 +1,8 @@
-
 void setupLED()
 {
   strip.begin();
   strip.show(); // Initialize all pixels to 'off'
+  
 }
 
 void testLED()

@@ -1,6 +1,13 @@
-void setuphorn();
-void horn();
-void testhorn();
+void setupBuzzer();
+void Buzzer();
+void testBuzzer();
+
+void setupCurie();
+
+void setupEncoders();
+void testEncoders();
+void countA();
+void countB();
 
 void setupLED();
 void testLED();
@@ -8,6 +15,7 @@ void brakeLED();
 void driveLED();
 void rightLED();
 void leftLED();
+
 void setupArdumoto();
 void testArdumoto();
 void driveArdumoto(byte motor, byte dir, byte spd);
@@ -17,7 +25,9 @@ void backward();
 void right();
 void left();
 void stopMotors();
+
 void setupProximity();
 void testProximity();
+
 void setupServo();
 void testServo();
