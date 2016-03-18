@@ -12,7 +12,7 @@ Advanced “Maker Racer: Road Rally”
 
 Special Thanks to:
 Intel NM Makers: A. Barnes, D. McCulley, D. Manzanares, J. Sholar, R. Mcinnis, B. Baltz, N. Paz
-Site Personnel: T. Marsh, R. Eppes
+NM Site Personnel: T. Marsh, R. Eppes
 */
 // included libraries
 #include "Car.h"
@@ -22,15 +22,20 @@ Site Personnel: T. Marsh, R. Eppes
 #ifdef __AVR__
   #include <avr/power.h>
 #endif
-#include <SharpIR.h>
+//#include <SharpIR.h>
+
 
 // Motor definitions to make life easier:
-#define MOTOR_A 0
-#define MOTOR_B 1
+//#define MOTOR_A 0
+const byte MOTOR_A = 0;
+//#define MOTOR_B 1
+const byte MOTOR_B = 1;
 // Clockwise and counter-clockwise definitions.
 // Depending on how you wired your motors, you may need to swap.
-#define CW  0
-#define CCW 1
+//#define CW  0
+const byte CW = 0;
+//#define CCW 1
+const byte CCW = 1;
 
 //Motor Pin Assignments
 const byte PWMA = 3;  // PWM control (speed) for motor A
@@ -41,6 +46,7 @@ const byte ENCA = 2;
 const byte ENCB = 8;
 //LED RGB Pin assignments
 const byte LED = 7; // Only a Data pin is required on the addressable RGB LEDs
+const byte NUMPIXELS = 4;  //number of RGB LEDs used
 //Buzzer Pin assignments
 const byte PWMBUZZER = 5; // PWM control for horn/buzzer
 //Servo Pin assignments
@@ -54,7 +60,7 @@ const byte PROXIMITY = A0; //Analog pin for distance sensed
 // Parameter 3 = pixel type flags, add together as needed:
 //   NEO_KHZ800  800 KHz bitstream (most NeoPixel products w/WS2812 LEDs)
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(4, LED, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMPIXELS, LED, NEO_GRB + NEO_KHZ800);
 // IMPORTANT: To reduce LED burnout risk, add 0.1 uF capacitor across pixel power leads, 
 // add 50 - 100 Ohm resistor on first pixel's data input
 // Avoid connecting on a live circuit...if you must, connect GND first.
@@ -66,6 +72,9 @@ int pos = 0;    // variable to store the servo position
 //Encoder definitions
 int encorderAValue=0;
 int encorderBValue=0;
+
+// Sharp IR distance sensor
+//SharpIR sharp(PROXIMITY, 25, 93, 430);
 
 void setup() {
 Serial.begin(9600);
@@ -103,4 +112,21 @@ void loop()
 //Advanced “Maker Racer: Road Rally”
 //  Participants will amaze audiences maneuvering their racer through an obstacle course to achieve maker victory.  
 
+
+  Serial.println("Forward");
+  forward(1000);
+  stopMotors();
+  delay(2000);
+  Serial.println("Right");
+  right();
+  stopMotors();
+  delay(2000);
+  Serial.println("Left");
+  left();
+  stopMotors();
+  delay(2000);
+  Serial.println("Backward");
+  backward(1000);
+  stopMotors();
+delay(2000);  
 }

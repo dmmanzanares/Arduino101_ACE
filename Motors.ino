@@ -32,13 +32,13 @@ void setupArdumoto()
 
 void testArdumoto()
 {
-  forward();
+  forward(250);
   stopMotors();
   right();
   stopMotors();
   left();
   stopMotors();
-  backward();
+  backward(250);
   stopMotors();
 }
 
@@ -64,27 +64,29 @@ void stopArdumoto(byte motor)
 }
 
 //Forwards full speed both motors on
-void forward()
+void forward(int mdelay)
 {
   // Now go forwards at full speed;
-  driveArdumoto(MOTOR_A, CW, 255);  // Motor A at max speed.
-  driveArdumoto(MOTOR_B, CW, 255);  // Motor B at max speed.
+  driveArdumoto(MOTOR_A, CW, 127);  // Motor A at max speed.
+  driveArdumoto(MOTOR_B, CW, 127);  // Motor B at max speed.
+  delay(mdelay);
 }
 
 //Backwards half speed both motors on
-void backward()
+void backward(int mdelay)
 {
   // Now go backwards at half that speed:
   driveArdumoto(MOTOR_A, CCW, 127);  // Motor A at half speed.
   driveArdumoto(MOTOR_B, CCW, 127);  // Motor B at half speed.
+  delay(mdelay);
 }
 
 //Right full and half speed Motor A
 void right()
 {
   // Drive motor A (and only motor A) at various speeds, then stop.
-  driveArdumoto(MOTOR_A, CW, 255); // Set motor A to CCW at max
-  delay(1000);  // Motor A will spin as set for 1 second
+  //driveArdumoto(MOTOR_A, CW, 255); // Set motor A to CCW at max
+  //delay(1000);  // Motor A will spin as set for 1 second
   driveArdumoto(MOTOR_A, CW, 127);  // Set motor A to CW at half
   delay(1000);  // Motor A will keep trucking for 1 second   
 }
@@ -93,8 +95,8 @@ void right()
 void left()
 {
   // Drive motor B (and only motor B) at various speeds, then stop.
-  driveArdumoto(MOTOR_B, CW, 255); // Set motor A to CCW at max
-  delay(1000);  // Motor A will spin as set for 1 second
+  //driveArdumoto(MOTOR_B, CW, 255); // Set motor A to CCW at max
+  //delay(1000);  // Motor A will spin as set for 1 second
   driveArdumoto(MOTOR_B, CW, 127);  // Set motor A to CW at half
   delay(1000);  // Motor A will keep trucking for 1 second   
 }

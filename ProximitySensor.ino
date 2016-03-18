@@ -1,7 +1,6 @@
 void setupProximity()
 {
   pinMode (PROXIMITY, INPUT);
-  SharpIR sharp(PROXIMITY, 25, 93, 430);
     /*PROXIMITY: the pin where your sensor is attached.
     25: the number of readings the library will make before calculating an average distance.
     93: the difference between two consecutive measurements to be taken as valid (in %)
@@ -12,7 +11,14 @@ void setupProximity()
 
 void testProximity()
 {
-  int dis=sharp.distance();  // this returns the distance to the object you're measuring
+  int dis = 0;
+//  int dis=sharp.distance();  // this returns the distance to the object you're measuring
+  int total = 0;
+  int n= 1;
+  for (n = 1; n<31; n++) {
+    total = total + analogRead(PROXIMITY);
+  }
+  dis = total/n;
   Serial.print("Mean distance: ");  // returns it to the serial monitor
   Serial.println(dis); 
 }

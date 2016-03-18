@@ -4,8 +4,8 @@ void setupEncoders()
 {
 pinMode(ENCA, INPUT);
 pinMode(ENCB, INPUT);
-attachInterrupt(digitalPinToInterrupt(ENCA), countA, FALLING);
-attachInterrupt(digitalPinToInterrupt(ENCB), countB, FALLING);
+attachInterrupt(ENCA, countA, FALLING);
+attachInterrupt(ENCB, countB, FALLING);
 encorderAValue=0;
 encorderBValue=0;
 }
