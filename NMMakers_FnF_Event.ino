@@ -24,36 +24,40 @@ NM Site Personnel: T. Marsh, R. Eppes
 #endif
 //#include <SharpIR.h>
 
-
 // Motor definitions to make life easier:
-//#define MOTOR_A 0
 const byte MOTOR_A = 0;
-//#define MOTOR_B 1
 const byte MOTOR_B = 1;
 // Clockwise and counter-clockwise definitions.
 // Depending on how you wired your motors, you may need to swap.
-//#define CW  0
 const byte CW = 0;
-//#define CCW 1
 const byte CCW = 1;
-
 //Motor Pin Assignments
 const byte PWMA = 3;  // PWM control (speed) for motor A
-const byte PWMB = 9; // PWM control (speed) for motor B  NOTE it is pin 11 on the Shield we have to jump 9 and 11 for Arduino 101
+const byte PWMB = 9;  // PWM control (speed) for motor B  NOTE it is pin 11 on the Shield we have to jump 9 and 11 for Arduino 101
 const byte DIRA = 12; // Direction control for motor A
 const byte DIRB = 13; // Direction control for motor B
-const byte ENCA = 2;
-const byte ENCB = 8;
-//LED RGB Pin assignments
-const byte LED = 7; // Only a Data pin is required on the addressable RGB LEDs
-const byte NUMPIXELS = 4;  //number of RGB LEDs used
+const byte ENCA = 2;  // Encoder for motor A
+const byte ENCB = 8;  // Encoder for motor B
+//Encoder definitions
+int encorderAValue=0;
+int encorderBValue=0;
+
 //Buzzer Pin assignments
 const byte PWMBUZZER = 5; // PWM control for horn/buzzer
 //Servo Pin assignments
-const byte PWMSERVO = 6; // PWM control (speed) for servo motor
+const byte PWMSERVO = 6;  // PWM control (speed) for servo motor
+// Servo definitions
+Servo myservo;  // create servo object to control a servo  
+int pos = 0;    // variable to store the servo position 
+
 //Proximity Pin Assignments
 const byte PROXIMITY = A0; //Analog pin for distance sensed
+// Sharp IR distance sensor
+// SharpIR sharp(PROXIMITY, 25, 93, 430);
 
+//LED RGB Pin assignments
+const byte LED = 7;        // Only a Data pin is required on the addressable RGB LEDs
+const byte NUMPIXELS = 4;  // number of RGB LEDs used
 // Addressable RGB LED definitions...like a NeoPixel
 // Parameter 1 = number of pixels in strip
 // Parameter 2 = Arduino pin number (most are valid)
@@ -64,17 +68,6 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMPIXELS, LED, NEO_GRB + NEO_KHZ800
 // IMPORTANT: To reduce LED burnout risk, add 0.1 uF capacitor across pixel power leads, 
 // add 50 - 100 Ohm resistor on first pixel's data input
 // Avoid connecting on a live circuit...if you must, connect GND first.
-
-// Servo definitions
-Servo myservo;  // create servo object to control a servo  
-int pos = 0;    // variable to store the servo position 
-
-//Encoder definitions
-int encorderAValue=0;
-int encorderBValue=0;
-
-// Sharp IR distance sensor
-//SharpIR sharp(PROXIMITY, 25, 93, 430);
 
 void setup() {
 Serial.begin(9600);
@@ -113,20 +106,4 @@ void loop()
 //  Participants will amaze audiences maneuvering their racer through an obstacle course to achieve maker victory.  
 
 
-  Serial.println("Forward");
-  forward(1000);
-  stopMotors();
-  delay(2000);
-  Serial.println("Right");
-  right();
-  stopMotors();
-  delay(2000);
-  Serial.println("Left");
-  left();
-  stopMotors();
-  delay(2000);
-  Serial.println("Backward");
-  backward(1000);
-  stopMotors();
-delay(2000);  
 }

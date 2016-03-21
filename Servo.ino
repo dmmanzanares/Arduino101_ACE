@@ -9,7 +9,9 @@
  
 void setupServo() 
 { 
+Serial.println("Servo Setup");
   myservo.attach(PWMSERVO);  // attaches the servo on PWM pin to the servo object 
+Serial.println("  Servo ready for control");
 } 
  
 void testServo() 

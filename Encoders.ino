@@ -2,12 +2,14 @@
 
 void setupEncoders()
 {
+Serial.println("Motor Encoders Setup");
 pinMode(ENCA, INPUT);
 pinMode(ENCB, INPUT);
 attachInterrupt(ENCA, countA, FALLING);
 attachInterrupt(ENCB, countB, FALLING);
 encorderAValue=0;
 encorderBValue=0;
+Serial.println("  Capturing data from encoders");
 }
 
 void testEncoders()

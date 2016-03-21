@@ -1,8 +1,9 @@
 void setupLED()
 {
+  Serial.println("Adressable RGB LED Setup");
   strip.begin();
   strip.show(); // Initialize all pixels to 'off'
-  
+  Serial.println("  RGB LEDs ready for control");
 }
 
 void testLED()
@@ -11,8 +12,7 @@ void testLED()
   for(int i=0;i<NUMPIXELS;i++)
     {
     // strip.Color takes RGB values, from 0,0,0 up to 255,255,255
-    strip.setPixelColor(i, strip.Color(0,113,197)); // Moderately bright green color.
-     // intel blue rgb(0, 113, 197)
+    strip.setPixelColor(i, strip.Color(0,113,197)); // intel blue rgb(0, 113, 197)
     }
     strip.show(); // This sends the updated pixel color to the hardware.
     delay(500); // Delay for a period of time (in milliseconds).

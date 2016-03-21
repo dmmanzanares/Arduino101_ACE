@@ -22,8 +22,8 @@ void driveArdumoto(byte motor, byte dir, byte spd);
 void stopArdumoto(byte motor);
 void forward(int mdelay);
 void backward(int mdelay);
-void right();
-void left();
+void right(int mdelay);
+void left(int mdelay);
 void stopMotors();
 
 void setupProximity();

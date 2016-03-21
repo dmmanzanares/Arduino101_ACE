@@ -1,9 +1,11 @@
 void setupBuzzer()
 {
-  // all pins as output
-   pinMode(PWMBUZZER, OUTPUT);
+Serial.println("Buzzer setup");
+// all pins as output
+  pinMode(PWMBUZZER, OUTPUT);
 // Initialize all pins as low:
   digitalWrite(PWMBUZZER, LOW);
+Serial.println("  Buzzer ready for control");
 }
 
 void Buzzer()

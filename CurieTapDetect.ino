@@ -1,30 +1,10 @@
 /*
-   Copyright (c) 2015 Intel Corporation.  All rights reserved.
-
-   This library is free software; you can redistribute it and/or
-   modify it under the terms of the GNU Lesser General Public
-   License as published by the Free Software Foundation; either
-   version 2.1 of the License, or (at your option) any later version.
-
-   This library is distributed in the hope that it will be useful,
-   but WITHOUT ANY WARRANTY; without even the implied warranty of
-   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-   Lesser General Public License for more details.
-
-   You should have received a copy of the GNU Lesser General Public
-   License along with this library; if not, write to the Free Software
-   Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-
-*/
-
-/*
    This sketch example demonstrates how the BMI160 accelerometer on the
    Intel(R) Curie(TM) module can be used to detect tap events
 */
 
-// in main function #include "CurieIMU.h"
-
 void setupCurie() {
+  Serial.println("Curie Setup");
   // Initialise the IMU
   CurieIMU.begin();
   CurieIMU.attachInterrupt(eventCallback);
@@ -41,7 +21,7 @@ void setupCurie() {
   // Enable Double-Tap detection
   CurieIMU.interrupts(CURIE_IMU_DOUBLE_TAP);
 
-  Serial.println("IMU initialisation complete, waiting for events...");
+  Serial.println("  IMU initialisation complete, waiting for events...");
 }
 
 static void eventCallback()

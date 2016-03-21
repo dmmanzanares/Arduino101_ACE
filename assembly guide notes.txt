@@ -1,0 +1,36 @@
+pictures not to size
+
+NEED to spell out when we start buiding
+
+Are we pre-assembling the encoders and the motors?
+
+each kid can work on a magnet and motor
+
+on the encoders we can leave it so we do NOT bend the hall effect leads into the plastic mounts
+
+
+	install the RGB LEDs into the LED cable
+		Do NOT put an LED into the connector on the short end of the cable
+		Insert the RGB LED into the LED Mount (the top hat 3D print)
+		Install the LEDs into the cable connectors, so that the LONG lead is inserted into the Black box on the connector
+			NOTE: fanning out the leads slightly make insertion into the connector easier
+	Route the LED cable into the chassis
+		Start with the short end of the cable in the center back of the chassis and route cable clockwise
+	install the RGB LEDs into the mounts in the chassis corners	
+
+challenge is with the top chassis to the bottom and motor mounts
+
+route wires last through the square opening not the oval openings
+
+	LED Cable connector
+	insert a black wire into black hole on the connector
+	insert a red wire into the hole next to the black wire...the 2 center holes will now have a wire
+	insert the third wire next to the red wire...there will be an open hole in the connector next to the black wire
+
+	Encoder Cable connector
+	insert a black wire into the connector match it up to the existing black wire
+	insert a red wire into the connector match it up to the existing red wire
+	insert a white wire into the connector match it up to the existing white wire
+
+NOW add the mainboard mount
+

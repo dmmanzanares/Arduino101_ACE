@@ -18,6 +18,7 @@
 // setupArdumoto initialize all pins
 void setupArdumoto()
 {
+  Serial.println("Setup Ardumoto Shield");
   // All pins should be setup as outputs:
   pinMode(PWMA, OUTPUT);
   pinMode(PWMB, OUTPUT);
@@ -28,18 +29,27 @@ void setupArdumoto()
   digitalWrite(PWMB, LOW);
   digitalWrite(DIRA, LOW);
   digitalWrite(DIRB, LOW);
+  Serial.println("  Motors ready for control");
 }
 
 void testArdumoto()
 {
-  forward(250);
+  Serial.println("Forward");
+  forward(1000);
   stopMotors();
-  right();
+  delay(2000);
+  Serial.println("Right");
+  right(500);
   stopMotors();
-  left();
+  delay(2000);
+  Serial.println("Left");
+  left(500);
   stopMotors();
-  backward(250);
+  delay(2000);
+  Serial.println("Backward");
+  backward(1000);
   stopMotors();
+  delay(2000);  
 }
 
 // driveArdumoto drives 'motor' in 'dir' direction at 'spd' speed
@@ -66,7 +76,7 @@ void stopArdumoto(byte motor)
 //Forwards full speed both motors on
 void forward(int mdelay)
 {
-  // Now go forwards at full speed;
+  // Now go forwards at half speed;
   driveArdumoto(MOTOR_A, CW, 127);  // Motor A at max speed.
   driveArdumoto(MOTOR_B, CW, 127);  // Motor B at max speed.
   delay(mdelay);
@@ -82,23 +92,23 @@ void backward(int mdelay)
 }
 
 //Right full and half speed Motor A
-void right()
+void right(int mdelay)
 {
   // Drive motor A (and only motor A) at various speeds, then stop.
   //driveArdumoto(MOTOR_A, CW, 255); // Set motor A to CCW at max
   //delay(1000);  // Motor A will spin as set for 1 second
   driveArdumoto(MOTOR_A, CW, 127);  // Set motor A to CW at half
-  delay(1000);  // Motor A will keep trucking for 1 second   
+  delay(mdelay);  // Motor A will keep trucking for 1 second   
 }
 
 //Leftt full and half speed Motor B
-void left()
+void left(int mdelay)
 {
   // Drive motor B (and only motor B) at various speeds, then stop.
   //driveArdumoto(MOTOR_B, CW, 255); // Set motor A to CCW at max
   //delay(1000);  // Motor A will spin as set for 1 second
   driveArdumoto(MOTOR_B, CW, 127);  // Set motor A to CW at half
-  delay(1000);  // Motor A will keep trucking for 1 second   
+  delay(mdelay);  // Motor A will keep trucking for 1 second   
 }
 
 //Stop both Motors A and B
