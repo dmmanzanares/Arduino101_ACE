@@ -88,10 +88,11 @@ Serial.begin(9600);
 
  testBuzzer();
  testLED();
- testServo();
- testProximity();
+ clearLED();
+ //testServo();
+ //testProximity();
  testArdumoto();
- testEncoders();
+ //testEncoders();
 }
 
 void loop() 
