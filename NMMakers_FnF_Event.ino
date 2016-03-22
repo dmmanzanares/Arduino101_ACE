@@ -15,7 +15,7 @@ Intel NM Makers: A. Barnes, D. McCulley, D. Manzanares, J. Sholar, R. Mcinnis, B
 NM Site Personnel: T. Marsh, R. Eppes
 */
 // included libraries
-#include "Car.h"
+//#include "Car.h"
 #include "CurieIMU.h"
 #include <Servo.h> 
 #include <Adafruit_NeoPixel.h>
@@ -27,6 +27,7 @@ NM Site Personnel: T. Marsh, R. Eppes
 // Motor definitions to make life easier:
 const byte MOTOR_A = 0;
 const byte MOTOR_B = 1;
+const byte MOTORS = 2;
 // Clockwise and counter-clockwise definitions.
 // Depending on how you wired your motors, you may need to swap.
 const byte CW = 0;
@@ -70,31 +71,40 @@ Adafruit_NeoPixel strip = Adafruit_NeoPixel(NUMPIXELS, LED, NEO_GRB + NEO_KHZ800
 // Avoid connecting on a live circuit...if you must, connect GND first.
 
 void setup() {
-Serial.begin(9600);
+Serial.begin(115200);
+delay(1000);
 //Curie Setup
-  setupCurie();
-// Motor Setup
-  setupArdumoto(); 
-// Encoder Setup
-  setupEncoders();
+  setupCurie();  
 // Buzzer Setup
   setupBuzzer();
 // RGB LED Setup
   setupLED();
+// Motor Setup
+  setupArdumoto(); 
+// Encoder Setup
+  setupEncoders();
 // Servo Setup
   setupServo();
 // Proximity Setup
   setupProximity();
+Serial.println("\nWelcome to the Intel Maker Nation");
+Serial.println("  New Mexico Friends and Family 'Maker Racer' Event\n");
+Serial.println("  **Waiting for Double Tap detection to start Racer**\n");
+}
 
+void StartRacer()
+{
+//waiting for Double Tap
+Serial.println("\n***Performing Racer Tests***\n");
  testBuzzer();
  testLED();
  clearLED();
- //testServo();
- //testProximity();
  testArdumoto();
  //testEncoders();
+ testServo();
+ testProximity();  
+Serial.println("\n***Tests Complete***\n");
 }
-
 void loop() 
 {
 // Beginner “Maker Racer: Speedway”
@@ -105,6 +115,4 @@ void loop()
 
 //Advanced “Maker Racer: Road Rally”
 //  Participants will amaze audiences maneuvering their racer through an obstacle course to achieve maker victory.  
-
-
 }

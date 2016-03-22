@@ -1,6 +1,6 @@
 void setupProximity()
 {
-Serial.println("IR Proximity Sensor Setup");  
+Serial.print("IR Proximity Sensor Setup...");  
   pinMode (PROXIMITY, INPUT);
     /*PROXIMITY: the pin where your sensor is attached.
     25: the number of readings the library will make before calculating an average distance.
@@ -8,19 +8,31 @@ Serial.println("IR Proximity Sensor Setup");
     model: is an int that determines your sensor:  1080 for GP2Y0A21Y, 20150 for GP2Y0A02Y  
     The numbers reflect the distance range they are designed for (in cm)*/
     //Our model is GP2Y0A41SK0F a range of 4 to 30cm so should be model 430
-Serial.println("  IR Proximity Sensor ready");    
+Serial.println("  ...IR Proximity Sensor ready for control");    
 }
 
 void testProximity()
 {
-  int dis = 0;
+Serial.println("IR Proximity Test");
+for (int d = 0; d < 3; d++) 
+{
 //  int dis=sharp.distance();  // this returns the distance to the object you're measuring
   int total = 0;
   int n;
-  for (n = 0; n < 30; n++) {
-    total = total + analogRead(PROXIMITY);
+  if (d==0) { 
+    myservo.write(0);  // look left
+    Serial.print("  Mean distance (to Racer's Left): ");
+  }   
+  else if (d==1)  { 
+    myservo.write(180);  //look right
+    Serial.print("  Mean distance (to Racer's Right): ");
   }
-  dis = total/n;
-  Serial.print("Mean distance: ");  // returns it to the serial monitor
-  Serial.println(dis); 
+  else if (d ==2) { 
+    myservo.write(90);  // straigh ahead
+    Serial.print("  Mean distance (Straigh ahead of Racer): ");  // returns it to the serial monitor
+  }
+  for (n = 0; n < 30; n++) 
+    { total = total + analogRead(PROXIMITY); }
+  Serial.println(total/n); 
+}
 }

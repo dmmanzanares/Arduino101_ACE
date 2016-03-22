@@ -4,13 +4,13 @@
 */
 
 void setupCurie() {
-  Serial.println("Curie Setup");
+  Serial.print("Curie Setup...");
   // Initialise the IMU
   CurieIMU.begin();
   CurieIMU.attachInterrupt(eventCallback);
 
   // Increase Accelerometer range to allow detection of stronger taps (< 4g)
-  CurieIMU.setAccelerometerRange(4);
+  CurieIMU.setAccelerometerRange(2);
 
   // Reduce threshold to allow detection of weaker taps (>= 750mg)
   CurieIMU.setDetectionThreshold(CURIE_IMU_TAP, 250); // (750mg)
@@ -21,7 +21,7 @@ void setupCurie() {
   // Enable Double-Tap detection
   CurieIMU.interrupts(CURIE_IMU_DOUBLE_TAP);
 
-  Serial.println("  IMU initialisation complete, waiting for events...");
+  Serial.println("  ...IMU initialisation complete, waiting for events...");
 }
 
 static void eventCallback()
@@ -39,5 +39,7 @@ static void eventCallback()
       Serial.println("Double Tap detected on negative Z-axis");
     if (CurieIMU.tapDetected(Z_AXIS, POSITIVE))
       Serial.println("Double Tap detected on positive Z-axis");
+  Serial.println("Starting Racer Tests");
+   StartRacer();  
   }
 }

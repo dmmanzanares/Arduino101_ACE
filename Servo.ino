@@ -9,22 +9,29 @@
  
 void setupServo() 
 { 
-Serial.println("Servo Setup");
+Serial.print("Servo Setup...");
   myservo.attach(PWMSERVO);  // attaches the servo on PWM pin to the servo object 
-Serial.println("  Servo ready for control");
+Serial.println("  ...Servo ready for control");
 } 
  
 void testServo() 
 { 
-  for(pos = 0; pos <= 180; pos += 1) // goes from 0 degrees to 180 degrees 
-  {                                  // in steps of 1 degree 
-    myservo.write(pos);              // tell servo to go to position in variable 'pos' 
+  Serial.println("Servo Test");
+  myservo.write(90);       // start at 90
+  delay(30);
+  Serial.println("  Moving servo from 0 to 180");
+  for(pos = 0; pos <= 180; pos += 1) // goes from 0 degrees to 180 degrees in steps of 1 degree
+  {
+    myservo.write(pos);       // tell servo to go to position in variable 'pos' 
     delay(15);                       // waits 15ms for the servo to reach the position 
   } 
-  for(pos = 180; pos>=0; pos-=1)     // goes from 180 degrees to 0 degrees 
+  Serial.println("  Moving servo from 180 to 0");
+  for(pos = 180; pos>=0; pos-=1)     // goes from 180 degrees to 0 degrees in steps fo 1 degree
   {                                
-    myservo.write(pos);              // tell servo to go to position in variable 'pos' 
+    myservo.write(pos);       // tell servo to go to position in variable 'pos' 
     delay(15);                       // waits 15ms for the servo to reach the position 
-  } 
+  }
+  myservo.write(90);       // end at 90
+  delay(30);
 } 
 

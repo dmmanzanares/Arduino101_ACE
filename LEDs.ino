@@ -1,35 +1,35 @@
 void setupLED()
 {
-  Serial.println("Adressable RGB LED Setup");
+  Serial.print("Adressable RGB LED Setup...");
   strip.begin();
   strip.show(); // Initialize all pixels to 'off'
-  Serial.println("  RGB LEDs ready for control");
+  Serial.println("  ...RGB LEDs ready for control");
 }
 
 void testLED()
 {
+  Serial.println("LED Test");
   // For a set of NeoPixels the first NeoPixel is 0, second is 1, all the way up to the count of pixels minus one.
   for(int i=0;i<NUMPIXELS;i++)
-    {
-    // strip.Color takes RGB values, from 0,0,0 up to 255,255,255 GRB
-    strip.setPixelColor(i, strip.Color(113,0,197)); // intel blue rgb(0, 113, 197)
+    {  // strip.Color takes RGB values, from 0,0,0 up to 255,255,255 in the order of GRB
+       strip.setPixelColor(i, strip.Color(113,0,197)); // intel blue rgb(0, 113, 197)
     }
     strip.show(); // This sends the updated pixel color to the hardware.
     delay(1000); // Delay for a period of time (in milliseconds).
-  for(int i=0;i<NUMPIXELS;i++)
-    {    
-    strip.setPixelColor(i, strip.Color(0,0,0)); // Moderately bright green color.
-    }    
-    strip.show(); // This sends the updated pixel color to the hardware.    
+    clearLED();
 
+  Serial.println("  STOP");
   brakeLED();
   delay(2000);    
+  Serial.println("  GO");
   driveLED();
   delay(2000);
+  Serial.println("  Turning Right");
   rightLED();
-  delay(200);
+  delay(800);
+  Serial.println("  Turning Left");
   leftLED();
-  delay(200);
+  delay(800);
 }
 
 void brakeLED()
@@ -74,9 +74,7 @@ void leftLED()
 
 void clearLED()
 {
-  for (int l=0; l<4; l++) {
-    strip.setPixelColor(l, strip.Color(0,0,0));
-  }
+  for (int l=0; l<NUMPIXELS; l++)
+    { strip.setPixelColor(l, strip.Color(0,0,0));  }
   strip.show();
 }
-

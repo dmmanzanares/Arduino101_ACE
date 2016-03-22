@@ -1,11 +1,11 @@
 void setupBuzzer()
 {
-Serial.println("Buzzer setup");
+Serial.print("Buzzer setup...");
 // all pins as output
   pinMode(PWMBUZZER, OUTPUT);
 // Initialize all pins as low:
   digitalWrite(PWMBUZZER, LOW);
-Serial.println("  Buzzer ready for control");
+Serial.println("  ...Buzzer ready for control");
 }
 
 void Buzzer()
@@ -20,6 +20,7 @@ void Buzzer()
 
 void testBuzzer()
 { 
+  Serial.println("Buzzer Test");
   // fade in from min to max in increments of 5 points:
   for(int fadeValue = 0 ; fadeValue <= 255; fadeValue +=5) 
   { 

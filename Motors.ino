@@ -1,16 +1,15 @@
 /* Adapted from Ardumoto Example Sketch
   by: Jim Lindblom
   date: November 8, 2013
-  license: Public domain. Please use, reuse, and modify this 
-  sketch!
+  license: Public domain. Please use, reuse, and modify this sketch!
   
   Three useful functions are defined:
     setupArdumoto() -- Setup the Ardumoto Shield pins
-    driveArdumoto([motor], [direction], [speed]) -- Drive [motor] 
-      (0 for A, 1 for B) in [direction] (0 or 1) at a [speed]
-      between 0 and 255. It will spin until told to stop.
-    stopArdumoto([motor]) -- Stop driving [motor] (0 or 1).
-  
+    driveArdumoto([motor], [direction], [speed], [mdelay]) -- 
+      Drive [motor] (0 for A, 1 for B, 2 for both) in [direction] (0 or 1) at a [speed] between 0 and 255, for length of time [mdelay].
+    stopArdumoto([motor]) -- Stop driving both motors
+      For ease of coding the functions have been created: forward, backward, right and left.  Each require speed and duration.
+      To reduce the surge current on the battery...a fadein function has been created, to fade in from 0 to speed requested.
   setupArdumoto() is called in the setup().
   The testArdumoto() demonstrates use of the motor driving functions.
 */
@@ -18,7 +17,7 @@
 // setupArdumoto initialize all pins
 void setupArdumoto()
 {
-  Serial.println("Setup Ardumoto Shield");
+  Serial.print("Setup Ardumoto Shield...");
   // All pins should be setup as outputs:
   pinMode(PWMA, OUTPUT);
   pinMode(PWMB, OUTPUT);
@@ -29,92 +28,91 @@ void setupArdumoto()
   digitalWrite(PWMB, LOW);
   digitalWrite(DIRA, LOW);
   digitalWrite(DIRB, LOW);
-  Serial.println("  Motors ready for control");
+  Serial.println("  ...Motors ready for control");
 }
 
 void testArdumoto()
 {
-  Serial.println("Forward");
-  forward(1000);
-  stopMotors();
+  Serial.println("Motor Test");
+  Serial.println("  Forward");
+  forward(255, 1000);
+  stopArdumoto();
   delay(2000);
-  Serial.println("Right");
-  right(500);
-  stopMotors();
+  Serial.println("  Right");
+  right(127, 500);
+  stopArdumoto();
   delay(2000);
-  Serial.println("Left");
-  left(500);
-  stopMotors();
+  Serial.println("  Left");
+  left(127, 500);
+  stopArdumoto();
   delay(2000);
-  Serial.println("Backward");
-  backward(1000);
-  stopMotors();
+  Serial.println("  Backward");
+  backward(127, 1000);
+  stopArdumoto();
   delay(2000);  
 }
 
+// stopArdumoto makes a motor stop
+void stopArdumoto()
+{
+    analogWrite(PWMA, 0);
+    analogWrite(PWMB, 0);
+}
+
 // driveArdumoto drives 'motor' in 'dir' direction at 'spd' speed
-void driveArdumoto(byte motor, byte dir, byte spd)
+void driveArdumoto(byte motor, byte dir, byte spd, int mdelay)
 {
   if (motor == MOTOR_A)
+  { digitalWrite(DIRA, dir); }
+  else if (motor == MOTOR_B)
+  { digitalWrite(DIRB, dir); }
+  else if (motor == MOTORS)
   {
     digitalWrite(DIRA, dir);
-    analogWrite(PWMA, spd);
-  }
-  else if (motor == MOTOR_B)
-  {
     digitalWrite(DIRB, dir);
-    analogWrite(PWMB, spd);
-  }  
+  }
+  fadein(motor, spd);
+  delay(mdelay); //run motors for this long  
 }
 
-// stopArdumoto makes a motor stop
-void stopArdumoto(byte motor)
+void fadein(byte motor, byte spd)
 {
-  driveArdumoto(motor, 0, 0);
+ // fade in from min to desired spd in increments of 5 points:
+  for(int fadeValue = 0 ; fadeValue <= spd; fadeValue +=5) 
+  { 
+     // sets the value (range from 0 to 255):
+    if (motor == MOTOR_A)
+    {  analogWrite(PWMA, fadeValue);  }
+    else if (motor == MOTOR_B)
+    {  analogWrite(PWMB, fadeValue);  }
+    else if (motor == MOTORS)
+    {
+      analogWrite(PWMA, fadeValue);   
+      analogWrite(PWMB, fadeValue);
+    }
+    // wait for 30 milliseconds to see the dimming effect    
+    delay(30);                            
+  }
 }
-
-//Forwards full speed both motors on
-void forward(int mdelay)
+void forward(byte spd, int mdelay)
 {
-  // Now go forwards at half speed;
-  driveArdumoto(MOTOR_A, CW, 127);  // Motor A at max speed.
-  driveArdumoto(MOTOR_B, CW, 127);  // Motor B at max speed.
-  delay(mdelay);
+  // Drive motor A  and B at various speeds, for a specified length of time
+  driveArdumoto(MOTORS, CW, spd, mdelay);  // Set motor A and B to CW at spd for mdelay time  
 }
 
-//Backwards half speed both motors on
-void backward(int mdelay)
+void backward(byte spd, int mdelay)
 {
-  // Now go backwards at half that speed:
-  driveArdumoto(MOTOR_A, CCW, 127);  // Motor A at half speed.
-  driveArdumoto(MOTOR_B, CCW, 127);  // Motor B at half speed.
-  delay(mdelay);
+  // Drive motor A  and B at various speeds, for a specified length of time
+  driveArdumoto(MOTORS, CCW, spd, mdelay);  // Set motor A and B to CCW at spd for mdelay time  
 }
-
-//Right full and half speed Motor A
-void right(int mdelay)
+void right(byte spd, int mdelay)
 {
-  // Drive motor A (and only motor A) at various speeds, then stop.
-  //driveArdumoto(MOTOR_A, CW, 255); // Set motor A to CCW at max
-  //delay(1000);  // Motor A will spin as set for 1 second
-  driveArdumoto(MOTOR_A, CW, 127);  // Set motor A to CW at half
-  delay(mdelay);  // Motor A will keep trucking for 1 second   
+  // Drive motor A  at various speeds, for a specified length of time
+  driveArdumoto(MOTOR_A, CW, spd, mdelay);  // Set motor A to CW at spd for mdelay time
 }
 
-//Leftt full and half speed Motor B
-void left(int mdelay)
+void left(byte spd, int mdelay)
 {
-  // Drive motor B (and only motor B) at various speeds, then stop.
-  //driveArdumoto(MOTOR_B, CW, 255); // Set motor A to CCW at max
-  //delay(1000);  // Motor A will spin as set for 1 second
-  driveArdumoto(MOTOR_B, CW, 127);  // Set motor A to CW at half
-  delay(mdelay);  // Motor A will keep trucking for 1 second   
+  // Drive motor B at various speeds, for a specified length of time
+  driveArdumoto(MOTOR_B, CW, spd, mdelay);  // Set motor B to CW at spd for mdelay time
 }
-
-//Stop both Motors A and B
-void stopMotors()
-{
-  stopArdumoto(MOTOR_A);  // STOP motor A 
-  stopArdumoto(MOTOR_B);  // STOP motor B 
-}
-
