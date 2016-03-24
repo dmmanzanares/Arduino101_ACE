@@ -1,9 +1,10 @@
+#include "CurieIMU.h"
 /*
    This sketch example demonstrates how the BMI160 accelerometer on the
    Intel(R) Curie(TM) module can be used to detect tap events
 */
-
 void setupCurie() {
+#ifdef ENABLE_TAP
   Serial.print("Curie Setup...");
   // Initialise the IMU
   CurieIMU.begin();
@@ -13,7 +14,7 @@ void setupCurie() {
   CurieIMU.setAccelerometerRange(2);
 
   // Reduce threshold to allow detection of weaker taps (>= 750mg)
-  CurieIMU.setDetectionThreshold(CURIE_IMU_TAP, 250); // (750mg)
+  CurieIMU.setDetectionThreshold(CURIE_IMU_DOUBLE_TAP, 250); // (750mg)
 
   // Set the time window for 2 taps to be registered as a double-tap (<= 250 milliseconds)
   CurieIMU.setDetectionDuration(CURIE_IMU_DOUBLE_TAP, 250);
@@ -22,6 +23,9 @@ void setupCurie() {
   CurieIMU.interrupts(CURIE_IMU_DOUBLE_TAP);
 
   Serial.println("  ...IMU initialisation complete, waiting for events...");
+#else
+  Serial.println("Tap Disabled");
+#endif
 }
 
 static void eventCallback()
@@ -39,7 +43,7 @@ static void eventCallback()
       Serial.println("Double Tap detected on negative Z-axis");
     if (CurieIMU.tapDetected(Z_AXIS, POSITIVE))
       Serial.println("Double Tap detected on positive Z-axis");
-  Serial.println("Starting Racer Tests");
-   StartRacer();  
+    Serial.println("Starting Racer Tests");
+    StartRacer();
   }
 }
