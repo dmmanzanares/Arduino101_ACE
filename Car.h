@@ -1,3 +1,12 @@
+//#define ENABLE_SERVO
+//#define ENABLE_PROXIMITY
+//#define ENABLE_MOTORSHIELD
+//#define ENABLE_BUZZER
+//#define ENABLE_TAP
+//#define ENABLE_ENCODER
+#define ENABLE_LED
+
+// Prototypes
 void setupBuzzer();
 void Buzzer();
 void testBuzzer();
