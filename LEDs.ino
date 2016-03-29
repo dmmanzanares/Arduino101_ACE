@@ -56,6 +56,10 @@ void testLED()
   Serial.println("  Turning Left");
   leftLED();
   delay(800);
+  pauseLED();
+  delay(800);
+  startingLED();
+  delay(800);
 }
 
 void brakeLED()
@@ -93,6 +97,30 @@ void leftLED()
     delay(150);
     strip.setPixelColor(0, strip.Color(165, 255, 0));
     strip.setPixelColor(1, strip.Color(165, 255, 0));
+    strip.show(); // This sends the updated pixel color to the hardware.
+    delay(250);
+  }
+}
+
+void pauseLED()
+{
+  clearLED();
+  for (int l = 0; l < NUMPIXELS; l++)
+  {
+    strip.setPixelColor(l, strip.Color(0, 0, 255));
+  }
+  strip.show();
+}
+
+void startingLED()
+{
+  for (int t = 0; t < 8; t++) {
+    clearLED(); // Initialize all pixels to 'off'
+    delay(250);
+    for (int l = 0; l < NUMPIXELS; l++)
+    {
+      strip.setPixelColor(l, strip.Color(255, 0, 0));
+    }
     strip.show(); // This sends the updated pixel color to the hardware.
     delay(250);
   }

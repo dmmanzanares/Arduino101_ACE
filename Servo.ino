@@ -32,14 +32,14 @@ void testServo()
   Serial.println("Servo Test");
   myservo.write(90);       // start at 90
   delay(30);
-  Serial.println("  Moving servo from 0 to 180");
-  for (pos = 0; pos <= 180; pos += 1) // goes from 0 degrees to 180 degrees in steps of 1 degree
+  Serial.println("  Moving servo from 30 to 150");
+  for (pos = 30; pos <= 150; pos += 1) // goes from 30 degrees to 150 degrees in steps of 1 degree
   {
     myservo.write(pos);       // tell servo to go to position in variable 'pos'
     delay(15);                // waits 15ms for the servo to reach the position
   }
-  Serial.println("  Moving servo from 180 to 0");
-  for (pos = 180; pos >= 0; pos -= 1) // goes from 180 degrees to 0 degrees in steps fo 1 degree
+  Serial.println("  Moving servo from 150 to 30");
+  for (pos = 150; pos >= 30; pos -= 1) // goes from 150 degrees to 30 degrees in steps fo 1 degree
   {
     myservo.write(pos);       // tell servo to go to position in variable 'pos'
     delay(15);                // waits 15ms for the servo to reach the position

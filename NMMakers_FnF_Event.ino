@@ -41,8 +41,6 @@ const byte LED       = 7;  // Only a Data pin is required on the addressable RGB
 
 void setup() {
   Serial.begin(115200);
-  delay(1000);
-  promptCR_V3("Hit CR to setup components");
 
   //Curie Setup
   setupCurie();
@@ -60,9 +58,13 @@ void setup() {
   setupProximity();
   Serial.println("\nWelcome to the Intel Maker Nation");
   Serial.println("  New Mexico Friends and Family 'Maker Racer' Event\n");
-  Serial.println("  **Waiting for Double Tap detection to start Racer**\n");
+  Serial.println("  **Waiting for car rotation to start Racer**\n");
+  pauseLED(); // turn on LEDs in 'paused' (blue) mode
   
-  promptCR_V3("Hit CR to test");
+  while (!tilted()) {}
+  startingLED(); // indicate car is starting
+  Serial.println("\n\nCar activated - starting test.\n");
+  clearLED();
   StartRacer();
 }
 
