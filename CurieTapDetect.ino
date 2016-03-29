@@ -36,7 +36,7 @@ bool tilted() {
   return (z < TILT_VALUE);
 }
 
-static void eventCallback()
+void eventCallback()
 {
   if (CurieIMU.getInterruptStatus(CURIE_IMU_DOUBLE_TAP)) {
     if (CurieIMU.tapDetected(X_AXIS, NEGATIVE))
