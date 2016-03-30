@@ -4,7 +4,7 @@
    Intel(R) Curie(TM) module can be used to detect tap events
 */
 
-const int TILT_VALUE = 15000; // Max Z-accelleration when tilted
+const int TILT_VALUE = 8000; // Max Z-accelleration when tilted
 
 void setupCurie() {
 #ifdef ENABLE_TAP
@@ -29,6 +29,7 @@ void setupCurie() {
 #else
   Serial.println("Tap Disabled");
 #endif
+  delay(1000); // wait for sensor data to settle
 }
 
 bool tilted() {
