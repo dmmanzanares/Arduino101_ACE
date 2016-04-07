@@ -33,6 +33,26 @@ void testEncoders()
   Serial.print("  |  Encoder B Value=");
   Serial.println(encorderBValue);
 }
+
+void turn90(int insidePWM, int outsidePWM, int outsideEncoder)
+{
+  int startCount = 0;
+  
+  analogWrite(insidePWM, 0);  // might need to reverse to stop
+  analogWrite(outsidePWM, 127);  // half speed
+  if (outsideEncoder == ENCA)
+  {
+    startCount = encorderAValue;
+    while (encorderAValue < (startCount + 230));
+  }
+  if (outsideEncoder == ENCB)
+  {
+    startCount = encorderBValue;
+    while (encorderBValue < (startCount + 230));
+  }
+  analogWrite(outsidePWM, 0); 
+}
+  
 /*
   void countA()
   {
