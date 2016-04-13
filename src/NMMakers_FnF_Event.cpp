@@ -35,13 +35,13 @@ CarDemo::CarDemo() {
   // RGB LED Setup
   //setupLED();
   // Motor Setup
-  //setupArdumoto();
+  //setupMotors();
   // Encoder Setup
   //setupEncoders();
   // Servo Setup
-  //setupServo();
+  setupServo();
   // Proximity Setup
-  //setupProximity();
+  setupProximity();
 
   //pauseLED(); // turn on LEDs in 'paused' (blue) mode
   
@@ -61,7 +61,7 @@ void CarDemo::testCar()
   //clearLED();
   testMotors();
   //testEncoders();
-  //testServo();
-  //testProximity();
+  testServo();
+  testProximity();
   //Serial.println("\n***Tests Complete***\n");
 }

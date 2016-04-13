@@ -1,6 +1,7 @@
 #ifndef CARDEMO_H
 #define CARDEMO_H
 #include <Adafruit_NeoPixel.h>
+#include <Servo.h>
 //namespace CarDemo {
 //#define ENABLE_SERVO
 //#define ENABLE_PROXIMITY
@@ -32,6 +33,12 @@ class CarDemo {
 		void startingLED();
 		void testLED();
 		
+		void setupProximity();
+		void testProximity();
+		
+		void setupServo();
+		void testServo();
+		
 	private:		
 		//Motor Pin Assignments
 		byte MOTORL =  3; // PWM control pin (speed) for left motor 
@@ -40,20 +47,17 @@ class CarDemo {
 		byte DIRR   = 13; // Direction control pin for motor B
 		byte ENCL   =  2; // Encoder for motor pin A
 		byte ENCR   =  8; // Encoder for motor pin B
-
 		//Buzzer Pin assignments
 		byte BUZZER = 5; // PWM control pin for horn/buzzer
-
 		//Servo Pin assignments
 		byte SERVO  = 6;  // PWM control pin (speed) for servo motor
-
 		//Proximity Pin Assignments
 		byte PROXIMITY = A0; // Analog pin for distance sensed
-
 		//LED RGB Pin assignments
 		byte LED       = 7;  // Only a Data pin is required on the addressable RGB LEDs
 		
 		Adafruit_NeoPixel strip;
+		Servo servo;
 };
 //} //namespace
 
