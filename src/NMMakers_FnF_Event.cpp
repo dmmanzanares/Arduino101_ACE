@@ -21,6 +21,9 @@
 #include <Arduino.h>
 
 CarDemo::CarDemo() {
+}
+
+void CarDemo::setupCar() {
   //Curie IMU Setup
   setupMotion();
   // Buzzer Setup

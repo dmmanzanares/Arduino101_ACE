@@ -7,6 +7,7 @@
 class CarDemo {
 	public:
 		CarDemo();
+        void setupCar();
 		void testCar();
 		
 		// Motor functions

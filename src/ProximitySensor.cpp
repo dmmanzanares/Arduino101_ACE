@@ -16,9 +16,7 @@ void CarDemo::setupProximity()
 void CarDemo::testProximity()
 {
 
-  //Serial.println("IR Proximity Test");
-  for (int d = 0; d < 3; d++)
-  {
+    Serial.println("IR Proximity Test");
     //  int dis=sharp.distance();  // this returns the distance to the object you're measuring
     int total = 0;
     int n;
@@ -26,7 +24,11 @@ void CarDemo::testProximity()
     {
       total = total + analogRead(PROXIMITY);
     }
-	total = total / 30;
-    //Serial.println(total / n);
-  }
+    float distance = total / 30.0;
+    //float volts = analogRead(total)*0.0048828125;   // value from sensor * (5/1024)
+    //float distance = 27.728 * pow(map(total, 0, 1023, 0, 5000)/1000.0, -1.2045);
+    //float distance = 65*pow(volts, -1.10);
+    Serial.print("Dist = ");
+    Serial.println(distance / n);
+
 }

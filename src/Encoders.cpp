@@ -6,8 +6,8 @@ int encoderRValue;
 
 void CarDemo::setupEncoders()
 {
-  pinMode(ENCL, INPUT);
-  pinMode(ENCR, INPUT);
+  pinMode(ENCL, INPUT_PULLUP);
+  pinMode(ENCR, INPUT_PULLUP);
   attachInterrupt(ENCL, countL, FALLING);
   attachInterrupt(ENCR, countR, FALLING);
   encoderLValue = 0;

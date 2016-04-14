@@ -21,16 +21,16 @@ void CarDemo::setupServo()
 
 void CarDemo::testServo()
 {
-  //Serial.println("Servo Test");
+  Serial.println("Servo Test");
   servo.write(90);       // start at 90
   delay(30);
-  //Serial.println("  Moving servo from 30 to 150");
+  Serial.println("  Moving servo from 30 to 150");
   for (pos = 30; pos <= 150; pos += 1) // goes from 30 degrees to 150 degrees in steps of 1 degree
   {
     servo.write(pos);       // tell servo to go to position in variable 'pos'
     delay(15);                // waits 15ms for the servo to reach the position
   }
-  //Serial.println("  Moving servo from 150 to 30");
+  Serial.println("  Moving servo from 150 to 30");
   for (pos = 150; pos >= 30; pos -= 1) // goes from 150 degrees to 30 degrees in steps fo 1 degree
   {
     servo.write(pos);       // tell servo to go to position in variable 'pos'
