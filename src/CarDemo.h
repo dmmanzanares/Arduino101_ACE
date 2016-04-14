@@ -2,7 +2,7 @@
 #define CARDEMO_H
 #include <Adafruit_NeoPixel.h>
 #include <Servo.h>
-//#include "BLE_Main.h"
+#include "BLE_Main.h"
 
 class CarDemo {
 	public:
@@ -41,7 +41,7 @@ class CarDemo {
         
         void setupEncoders();
         
-        // void setupBLE();
+        void setupBLE();
         // void pollForConnect();
 		
 	private:		

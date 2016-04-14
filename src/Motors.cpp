@@ -47,29 +47,29 @@ void CarDemo::setupMotors()
 
 void CarDemo::testMotors()
 {
-  //Serial.println("Motor Test");
-  //Serial.println("  Forward");
-  motorsWrite(127, 127);
-  stopMotors();
+  Serial.println("Motor Test");
+  Serial.println("  Forward");
+  motorsWrite(100, 100);
   delay(2000);
-  //Serial.println("  Right");
-  motorsWrite(127, -127);
   stopMotors();
+  Serial.println("  Right");
+  motorsWrite(100, -100);
   delay(2000);
-  //Serial.println("  Left");
-  motorsWrite(-127, 127);
   stopMotors();
+  Serial.println("  Left");
+  motorsWrite(-100, 100);
   delay(2000);
-  //Serial.println("  Backward");
-  motorsWrite(-127, -127);
   stopMotors();
+  Serial.println("  Backward");
+  motorsWrite(-100, -100);
   delay(2000);
+  stopMotors();  
 }
 
 // stopMotors makes a motor stop
 void CarDemo::stopMotors()
 {
-  analogWrite(MOTORL, 0);
+  motorsWrite(MOTORL, 0);
   analogWrite(MOTORR, 0);
 }
 
