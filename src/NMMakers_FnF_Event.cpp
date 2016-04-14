@@ -21,23 +21,16 @@
 #include <Arduino.h>
 
 CarDemo::CarDemo() {
-  // Serial.begin(115200);
-  // delay(2000);
-  // Serial.println("\nWelcome to the Intel Maker Nation");
-  // Serial.println("  New Mexico Friends and Family 'Maker Racer' Event\n");
-  // Serial.println("  **Waiting for car rotation to start Racer**\n");
-  setupMotors();
-  setupLED();
-  //Curie Setup
-  //setupMotion();
+  //Curie IMU Setup
+  setupMotion();
   // Buzzer Setup
-  //setupBuzzer();
+  setupBuzzer();
   // RGB LED Setup
-  //setupLED();
+  setupLED();
   // Motor Setup
-  //setupMotors();
+  setupMotors();
   // Encoder Setup
-  //setupEncoders();
+  setupEncoders();
   // Servo Setup
   setupServo();
   // Proximity Setup

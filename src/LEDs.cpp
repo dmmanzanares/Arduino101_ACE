@@ -99,7 +99,7 @@ void CarDemo::startingLED()
 
 void CarDemo::testLED()
 {
-  Serial.println("LED Test");
+  //Serial.println("LED Test");
   // For a set of NeoPixels the first NeoPixel is 0, second is 1, all the way up to the count of pixels minus one.
   for (int i = 0; i < NUMPIXELS; i++)
   { // strip.Color takes RGB values, from 0,0,0 up to 255,255,255 in the order of GRB

@@ -7,15 +7,14 @@
 
 const int TILT_VALUE = 8000; // Max Z-accelleration when tilted
 
-void setupMotion() {
-  Serial.print("Curie Setup...");
+void CarDemo::setupMotion() {
   // Initialise the IMU
   CurieIMU.begin();
 
   delay(1000); // wait for sensor data to settle
 }
 
-bool tilted() {
+bool CarDemo::tilted() {
   int z = CurieIMU.readAccelerometer(Z_AXIS);
   return (z < TILT_VALUE);
 }

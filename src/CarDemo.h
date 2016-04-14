@@ -2,14 +2,7 @@
 #define CARDEMO_H
 #include <Adafruit_NeoPixel.h>
 #include <Servo.h>
-//namespace CarDemo {
-//#define ENABLE_SERVO
-//#define ENABLE_PROXIMITY
-//#define ENABLE_MOTORSHIELD
-//#define ENABLE_BUZZER
-//#define ENABLE_TAP
-//#define ENABLE_ENCODER
-//#define ENABLE_LED
+//#include "BLE_Main.h"
 
 class CarDemo {
 	public:
@@ -38,6 +31,17 @@ class CarDemo {
 		
 		void setupServo();
 		void testServo();
+        
+        void setupBuzzer();
+        void testBuzzer();
+        
+        void setupMotion();
+        bool tilted();
+        
+        void setupEncoders();
+        
+        // void setupBLE();
+        // void pollForConnect();
 		
 	private:		
 		//Motor Pin Assignments
@@ -58,9 +62,15 @@ class CarDemo {
 		
 		Adafruit_NeoPixel strip;
 		Servo servo;
+        
+        // BLEPeripheral bleCarRemote;
+        // BLEService ioService;
+        // BLECharCharacteristic motorStateSwitchChrtc;
 };
-//} //namespace
 
-//using namespace CarDemo;
+void countL();
+void countR();
+extern int encoderLValue;
+extern int encoderRValue;
 
 #endif // CARDEMO_H
