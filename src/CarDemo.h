@@ -35,6 +35,7 @@ class CarDemo {
         
         void setupBuzzer();
         void testBuzzer();
+		void playCharge(); 
         
         void setupMotion();
         bool tilted();

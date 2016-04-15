@@ -47,21 +47,22 @@ void CarDemo::setupMotors()
 
 void CarDemo::testMotors()
 {
+  int speed = 60;
   Serial.println("Motor Test");
   Serial.println("  Forward");
-  motorsWrite(100, 100);
+  motorsWrite(speed, speed);
   delay(2000);
   stopMotors();
   Serial.println("  Right");
-  motorsWrite(100, -100);
+  motorsWrite(speed, -1*speed);
   delay(2000);
   stopMotors();
   Serial.println("  Left");
-  motorsWrite(-100, 100);
+  motorsWrite(-1*speed, speed);
   delay(2000);
   stopMotors();
   Serial.println("  Backward");
-  motorsWrite(-100, -100);
+  motorsWrite(-1*speed, -1*speed);
   delay(2000);
   stopMotors();  
 }

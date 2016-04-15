@@ -20,6 +20,8 @@
 #include "CarDemo.h"
 #include <Arduino.h>
 
+
+
 CarDemo::CarDemo() {
 }
 
@@ -39,13 +41,12 @@ void CarDemo::setupCar() {
   // Proximity Setup
   setupProximity();
 
-  //pauseLED(); // turn on LEDs in 'paused' (blue) mode
+  pauseLED(); // turn on LEDs in 'paused' (blue) mode
   
-  // while (!tilted()) {}
-  // startingLED(); // indicate car is starting
-  // Serial.println("\n\nCar activated - starting test.\n");
-  // clearLED();
-  // StartRacer();
+  while (!tilted()) {}
+  startingLED(); // indicate car is starting
+  Serial.println("\n\nCar activated - starting test.\n");
+  clearLED();
 }
 
 void CarDemo::testCar()
