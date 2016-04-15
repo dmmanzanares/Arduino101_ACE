@@ -35,7 +35,7 @@ class CarDemo {
         
         void setupBuzzer();
         void testBuzzer();
-		void playCharge(); 
+		void playSong(int notes[], int durations[]);
         
         void setupMotion();
         bool tilted();
