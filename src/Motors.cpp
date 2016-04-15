@@ -52,15 +52,12 @@ void CarDemo::testMotors()
   Serial.println("  Forward");
   motorsWrite(speed, speed);
   delay(2000);
-  stopMotors();
   Serial.println("  Right");
   motorsWrite(speed, -1*speed);
   delay(2000);
-  stopMotors();
   Serial.println("  Left");
   motorsWrite(-1*speed, speed);
   delay(2000);
-  stopMotors();
   Serial.println("  Backward");
   motorsWrite(-1*speed, -1*speed);
   delay(2000);
@@ -70,8 +67,8 @@ void CarDemo::testMotors()
 // stopMotors makes a motor stop
 void CarDemo::stopMotors()
 {
-  motorsWrite(MOTORL, 0);
-  analogWrite(MOTORR, 0);
+  digitalWrite(MOTORL, 0);
+  digitalWrite(MOTORR, 0);
 }
 
 // driveMotors drives 'motor' in 'dir' direction at 'spd' speed
