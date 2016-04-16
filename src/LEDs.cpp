@@ -97,6 +97,20 @@ void CarDemo::startingLED()
   }
 }
 
+void CarDemo::setLED(int led, long color)
+{
+  if (led == ALL_LEDS) {
+	  for (int l = 0; l < NUMPIXELS; l++)
+	  {
+		strip.setPixelColor(l, color);
+	  }
+	  strip.show();
+  } else {
+	  strip.setPixelColor(led, color);
+	  strip.show();
+  }
+}
+
 void CarDemo::testLED()
 {
   Serial.println("LED Test");
@@ -114,12 +128,6 @@ void CarDemo::testLED()
   Serial.println("  Turning Left");
   leftLED();
   delay(2000);
-  Serial.println("  PAUSED");
-  pauseLED();
-  delay(1000);
-  Serial.println("  STARTING");
-  startingLED();
-  delay(1000);
   clearLED();
 }
 //} // namespace

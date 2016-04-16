@@ -37,7 +37,7 @@ void CarDemo::setupCar() {
   // Encoder Setup
   setupEncoders();
   // Servo Setup
-  setupServo();
+  //setupServo();
   // Proximity Setup
   setupProximity();
 

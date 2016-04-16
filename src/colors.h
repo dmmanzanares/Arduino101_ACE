@@ -1,0 +1,16 @@
+#define BLACK	0X000000	
+#define RED		0X00FF00	
+#define LIME	0XFF0000	
+#define BLUE	0X0000FF	
+#define YELLOW	0XFFFF00	
+#define CYAN 	0XFF00FF	
+#define MAGENTA 0X00FFFF	
+#define SILVER	0XC0C0C0	
+#define GRAY	0X808080	
+#define MAROON	0X008000		
+#define GREEN	0X800000	
+#define PURPLE	0X008080	
+#define TEAL	0X800080	
+#define NAVY	0X000080
+
+#define ALL_LEDS 999

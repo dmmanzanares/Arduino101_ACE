@@ -3,6 +3,7 @@
 #include <Adafruit_NeoPixel.h>
 #include <Servo.h>
 #include "BLE_Main.h"
+#include "colors.h"
 
 class CarDemo {
 	public:
@@ -25,17 +26,20 @@ class CarDemo {
 		void leftLED();
 		void rightLED();
 		void startingLED();
+		void setLED(int led, long color);
 		void testLED();
 		
 		void setupProximity();
 		void testProximity();
+		float getRange();
+		bool checkObstacle(int minDist);
 		
 		void setupServo();
 		void testServo();
         
         void setupBuzzer();
         void testBuzzer();
-		void playSong(int notes[], int durations[]);
+		void playSong(int *notes, int *durations, int numnotes);
         
         void setupMotion();
         bool tilted();

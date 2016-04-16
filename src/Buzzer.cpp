@@ -28,8 +28,8 @@ void CarDemo::testBuzzer()
   }
 }
 
-void CarDemo::playSong(int notes[], int durations[]) {
-	for (int thisNote = 0; thisNote < sizeof(notes); thisNote++) {
+void CarDemo::playSong(int *notes, int *durations, int numnotes) {
+	for (int thisNote = 0; thisNote < numnotes; thisNote++) {
 
     // to calculate the note duration, take one second
     // divided by the note type.
@@ -42,6 +42,6 @@ void CarDemo::playSong(int notes[], int durations[]) {
     int pauseBetweenNotes = noteDuration * 1.30;
     delay(pauseBetweenNotes);
     // stop the tone playing:
-    notone(BUZZER);
+    noTone(BUZZER);
   }
 }	
