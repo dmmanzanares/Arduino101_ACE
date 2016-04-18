@@ -47,30 +47,28 @@ void CarDemo::setupMotors()
 
 void CarDemo::testMotors()
 {
-  //Serial.println("Motor Test");
-  //Serial.println("  Forward");
-  motorsWrite(127, 127);
-  stopMotors();
+  int speed = 60;
+  Serial.println("Motor Test");
+  Serial.println("  Forward");
+  motorsWrite(speed, speed);
   delay(2000);
-  //Serial.println("  Right");
-  motorsWrite(127, -127);
-  stopMotors();
+  Serial.println("  Right");
+  motorsWrite(speed, -1*speed);
   delay(2000);
-  //Serial.println("  Left");
-  motorsWrite(-127, 127);
-  stopMotors();
+  Serial.println("  Left");
+  motorsWrite(-1*speed, speed);
   delay(2000);
-  //Serial.println("  Backward");
-  motorsWrite(-127, -127);
-  stopMotors();
+  Serial.println("  Backward");
+  motorsWrite(-1*speed, -1*speed);
   delay(2000);
+  stopMotors();  
 }
 
 // stopMotors makes a motor stop
 void CarDemo::stopMotors()
 {
-  analogWrite(MOTORL, 0);
-  analogWrite(MOTORR, 0);
+  digitalWrite(MOTORL, 0);
+  digitalWrite(MOTORR, 0);
 }
 
 // driveMotors drives 'motor' in 'dir' direction at 'spd' speed
@@ -98,6 +96,8 @@ void CarDemo::motorsWrite(int speedL, int speedR)
     // digitalWrite(DIRR, dir);
   // }
   //fadein(motor, spd);
+  speedL += abs(motorLSkew);
+  speedR += abs(motorRSkew);
   digitalWrite(MOTORL, speedL);
   digitalWrite(MOTORR, speedR);
   //delay(mdelay); //run motors for this long

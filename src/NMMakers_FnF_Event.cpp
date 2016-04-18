@@ -20,36 +20,36 @@
 #include "CarDemo.h"
 #include <Arduino.h>
 
+
+
 CarDemo::CarDemo() {
-  // Serial.begin(115200);
-  // delay(2000);
-  // Serial.println("\nWelcome to the Intel Maker Nation");
-  // Serial.println("  New Mexico Friends and Family 'Maker Racer' Event\n");
-  // Serial.println("  **Waiting for car rotation to start Racer**\n");
-  setupMotors();
-  setupLED();
-  //Curie Setup
-  //setupMotion();
+}
+
+void CarDemo::setupCar() {
+  //Curie IMU Setup
+  setupMotion();
   // Buzzer Setup
-  //setupBuzzer();
+  setupBuzzer();
   // RGB LED Setup
-  //setupLED();
+  setupLED();
   // Motor Setup
-  //setupArdumoto();
+  setupMotors();
   // Encoder Setup
-  //setupEncoders();
+  setupEncoders();
   // Servo Setup
   //setupServo();
   // Proximity Setup
-  //setupProximity();
-
-  //pauseLED(); // turn on LEDs in 'paused' (blue) mode
+  setupProximity();
   
-  // while (!tilted()) {}
-  // startingLED(); // indicate car is starting
-  // Serial.println("\n\nCar activated - starting test.\n");
-  // clearLED();
-  // StartRacer();
+  motorLSkew = 0;
+  motorRSkew = 0;
+  
+  pauseLED(); // turn on LEDs in 'paused' (blue) mode
+  
+  while (!tilted()) {}
+  startingLED(); // indicate car is starting
+  Serial.println("\n\nCar activated - starting test.\n");
+  clearLED();
 }
 
 void CarDemo::testCar()
@@ -61,7 +61,7 @@ void CarDemo::testCar()
   //clearLED();
   testMotors();
   //testEncoders();
-  //testServo();
-  //testProximity();
+  testServo();
+  testProximity();
   //Serial.println("\n***Tests Complete***\n");
 }
