@@ -96,6 +96,8 @@ void CarDemo::motorsWrite(int speedL, int speedR)
     // digitalWrite(DIRR, dir);
   // }
   //fadein(motor, spd);
+  speedL += abs(motorLSkew);
+  speedR += abs(motorRSkew);
   digitalWrite(MOTORL, speedL);
   digitalWrite(MOTORR, speedR);
   //delay(mdelay); //run motors for this long

@@ -40,7 +40,10 @@ void CarDemo::setupCar() {
   //setupServo();
   // Proximity Setup
   setupProximity();
-
+  
+  motorLSkew = 0;
+  motorRSkew = 0;
+  
   pauseLED(); // turn on LEDs in 'paused' (blue) mode
   
   while (!tilted()) {}

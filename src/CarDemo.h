@@ -49,6 +49,9 @@ class CarDemo {
         void setupBLE();
         // void pollForConnect();
 		
+		int motorLSkew;
+		int motorRSkew;
+		
 	private:		
 		//Motor Pin Assignments
 		byte MOTORL =  3; // PWM control pin (speed) for left motor 

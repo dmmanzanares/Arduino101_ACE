@@ -15,7 +15,7 @@ void loop() {
     car.motorsWrite(-40, -40);
     delay(40);
     car.motorsWrite(40, -40);
-    delay(100);
+    delay(20);
     car.stopMotors();
   } else {
     car.setLED(ALL_LEDS, GREEN);
