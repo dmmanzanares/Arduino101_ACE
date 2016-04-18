@@ -3,6 +3,8 @@
 
 int encoderLValue;
 int encoderRValue;
+int encoderLStopCount;
+int encoderRStopCount;
 
 void CarDemo::setupEncoders()
 {
@@ -12,13 +14,21 @@ void CarDemo::setupEncoders()
   attachInterrupt(ENCR, countR, FALLING);
   encoderLValue = 0;
   encoderRValue = 0;
+  encoderLStopCount = 0;
+  encoderRStopCount = 0;
 }
 
 void countL()
 {
   encoderLValue++;
+  if ((encoderLStopCount != 0) && (encoderLValue >= encoderLStopCount)) {
+	  //obj.stopMotors();
+  }
 }
 void countR()
 {
   encoderRValue++;
+  if ((encoderRStopCount != 0) && (encoderRValue >= encoderRStopCount)) {
+	  //obj.stopMotors();
+  }
 }

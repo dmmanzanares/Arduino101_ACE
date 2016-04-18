@@ -38,8 +38,8 @@ float CarDemo::getRange()
 bool CarDemo::checkObstacle(int minDist)
 {
     float dist = getRange();
-	Serial.println(dist);
-	Serial.print("min = ");
-	Serial.println((float) minDist);
+	//Serial.println(dist);
+	//Serial.print("min = ");
+	//Serial.println((float) minDist);
 	return (dist < (float) minDist);
 }

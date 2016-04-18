@@ -20,7 +20,8 @@
 // Depending on how you wired your motors, you may need to swap.
 const byte CW  = 0;
 const byte CCW = 1;
-const int MAXSPEED = 255;
+int FULLSPEED = 255;
+int HALFSPEED = 127;
 
 // Motor definitions to make life easier:
 // const byte MOTOR_A = 0;
@@ -47,7 +48,7 @@ void CarDemo::setupMotors()
 
 void CarDemo::testMotors()
 {
-  int speed = 60;
+  int speed = 127;
   Serial.println("Motor Test");
   Serial.println("  Forward");
   motorsWrite(speed, speed);
@@ -67,8 +68,8 @@ void CarDemo::testMotors()
 // stopMotors makes a motor stop
 void CarDemo::stopMotors()
 {
-  digitalWrite(MOTORL, 0);
-  digitalWrite(MOTORR, 0);
+  digitalWrite(MOTORL, LOW);
+  digitalWrite(MOTORR, LOW);
 }
 
 // driveMotors drives 'motor' in 'dir' direction at 'spd' speed
@@ -96,11 +97,22 @@ void CarDemo::motorsWrite(int speedL, int speedR)
     // digitalWrite(DIRR, dir);
   // }
   //fadein(motor, spd);
-  speedL += abs(motorLSkew);
-  speedR += abs(motorRSkew);
-  digitalWrite(MOTORL, speedL);
-  digitalWrite(MOTORR, speedR);
+  speedL = abs(speedL * motorLSkew);
+  speedR = abs(speedR * motorRSkew);
+  Serial.println(speedL);
+  Serial.println(speedR);
+  analogWrite(MOTORL, speedL);
+  analogWrite(MOTORR, speedR);
   //delay(mdelay); //run motors for this long
+}
+
+void CarDemo::motorsWriteStep(int speedL, int speedR, int stepsL, int stepsR)
+{
+	encoderLStopCount = stepsL;
+    encoderRStopCount = stepsR;
+	encoderLValue = 0;
+    encoderRValue = 0;
+	motorsWrite(speedL, speedR);
 }
 
 // void fadein(byte motor, byte spd)

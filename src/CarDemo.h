@@ -16,6 +16,7 @@ class CarDemo {
 		void testMotors();
 		void stopMotors();
 		void motorsWrite(int speedL, int speedR);
+		void motorsWriteStep(int speedL, int speedR, int stepsL, int stepsR);
 		
 		// LED functions and variables  
 		void setupLED();
@@ -36,6 +37,7 @@ class CarDemo {
 		
 		void setupServo();
 		void testServo();
+		void setServo(int angle);
         
         void setupBuzzer();
         void testBuzzer();
@@ -45,12 +47,14 @@ class CarDemo {
         bool tilted();
         
         void setupEncoders();
+		//static void countL();
+        //static void countR();
         
         void setupBLE();
         // void pollForConnect();
 		
-		int motorLSkew;
-		int motorRSkew;
+		float motorLSkew;
+		float motorRSkew;
 		
 	private:		
 		//Motor Pin Assignments
@@ -81,5 +85,10 @@ void countL();
 void countR();
 extern int encoderLValue;
 extern int encoderRValue;
+extern int encoderLStopCount;
+extern int encoderRStopCount;
+
+extern int FULLSPEED;
+extern int HALFSPEED;
 
 #endif // CARDEMO_H

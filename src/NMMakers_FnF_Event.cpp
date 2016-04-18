@@ -20,8 +20,6 @@
 #include "CarDemo.h"
 #include <Arduino.h>
 
-
-
 CarDemo::CarDemo() {
 }
 
@@ -35,18 +33,20 @@ void CarDemo::setupCar() {
   // Motor Setup
   setupMotors();
   // Encoder Setup
-  setupEncoders();
+  //setupEncoders();
   // Servo Setup
   //setupServo();
   // Proximity Setup
   setupProximity();
   
-  motorLSkew = 0;
-  motorRSkew = 0;
+  motorLSkew = 1.0;  // 100% = no skew
+  motorRSkew = 1.0;  // 100% = no skew
   
   pauseLED(); // turn on LEDs in 'paused' (blue) mode
   
-  while (!tilted()) {}
+  while (!tilted()) {
+    delay(10);
+  }
   startingLED(); // indicate car is starting
   Serial.println("\n\nCar activated - starting test.\n");
   clearLED();

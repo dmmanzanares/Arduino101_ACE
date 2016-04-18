@@ -40,3 +40,14 @@ void CarDemo::testServo()
   delay(30);
 }
 
+void CarDemo::setServo(int angle)
+{
+  if (angle < 10) {
+	angle = 10;
+  }
+  else if (angle > 170) {
+    angle = 170;
+  }
+  servo.write(angle);
+}
+
