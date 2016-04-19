@@ -1,30 +1,76 @@
 #######################################
-# Syntax Coloring Map for SoftwareSerial
-# (formerly NewSoftSerial)
+# Syntax Coloring Map for NMMakers_FnF_CarDemo
 #######################################
 
 #######################################
 # Datatypes (KEYWORD1)
 #######################################
 
-SoftwareSerial	KEYWORD1
-
 #######################################
 # Methods and Functions (KEYWORD2)
 #######################################
 
-begin	KEYWORD2
-end	KEYWORD2
-read	KEYWORD2
-write	KEYWORD2
-available	KEYWORD2
-isListening	KEYWORD2
-overflow	KEYWORD2
-flush	KEYWORD2
-listen	KEYWORD2
-peek	KEYWORD2
+CarDemo	KEYWORD2
+setupCar	KEYWORD2
+testCar	KEYWORD2
+setupMotors	KEYWORD2
+testMotors	KEYWORD2
+stopMotors	KEYWORD2
+motorsWrite	KEYWORD2
+motorsWriteStep	KEYWORD2
+setupLED	KEYWORD2
+clearLED	KEYWORD2
+brakeLED	KEYWORD2
+driveLED	KEYWORD2
+pauseLED	KEYWORD2
+leftLED	KEYWORD2
+rightLED	KEYWORD2
+startingLED	KEYWORD2
+setLED	KEYWORD2
+testLED	KEYWORD2
+setupProximity	KEYWORD2
+testProximity	KEYWORD2
+getRange	KEYWORD2
+checkObstacle	KEYWORD2
+setupServo	KEYWORD2
+testServo	KEYWORD2
+setServo	KEYWORD2
+setupBuzzer	KEYWORD2
+testBuzzer	KEYWORD2
+playSong	KEYWORD2
+playNote	KEYWORD2
+setupMotion	KEYWORD2
+tilted	KEYWORD2
+setupEncoders	KEYWORD2
+setupBLE	KEYWORD2
+motorLSkew	KEYWORD2
+motorRSkew	KEYWORD2
+
+encoderLValue	KEYWORD2
+encoderRValue	KEYWORD2
+encoderLStopCount	KEYWORD2
+encoderRStopCount	KEYWORD2
 
 #######################################
 # Constants (LITERAL1)
 #######################################
+BLACK	LITERAL1
+RED		LITERAL1
+LIME	LITERAL1
+BLUE	LITERAL1
+YELLOW	LITERAL1
+CYAN 	LITERAL1
+MAGENTA LITERAL1
+SILVER	LITERAL1
+GRAY	LITERAL1
+MAROON	LITERAL1
+GREEN	LITERAL1
+PURPLE	LITERAL1
+TEAL	LITERAL1
+NAVY	LITERAL1
+WHITE	LITERAL1
 
+ALL_LEDS	LITERAL1
+
+FULLSPEED	LITERAL1
+HALFSPEED	LITERAL1
