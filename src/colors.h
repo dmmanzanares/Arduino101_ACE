@@ -12,5 +12,6 @@
 #define PURPLE	0X008080	
 #define TEAL	0X800080	
 #define NAVY	0X000080
+#define WHITE	0XFFFFFF
 
 #define ALL_LEDS 999

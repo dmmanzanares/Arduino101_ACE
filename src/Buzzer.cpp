@@ -28,8 +28,17 @@ void CarDemo::testBuzzer()
   }
 }
 
+void CarDemo::playNote(int note, int duration) {
+    // to calculate the note duration, take one second
+    // divided by the note type.
+    //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
+    int noteDuration = 1000 / duration;
+    tone(BUZZER, note, noteDuration);
+    noTone(BUZZER);
+}
+
 void CarDemo::playSong(int *notes, int *durations, int numnotes) {
-	for (int thisNote = 0; thisNote < numnotes; thisNote++) {
+  for (int thisNote = 0; thisNote < numnotes; thisNote++) {
 
     // to calculate the note duration, take one second
     // divided by the note type.
