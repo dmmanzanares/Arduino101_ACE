@@ -68,8 +68,8 @@ void CarDemo::testMotors()
 // stopMotors makes a motor stop
 void CarDemo::stopMotors()
 {
-  digitalWrite(MOTORL, LOW);
-  digitalWrite(MOTORR, LOW);
+  analogWrite(MOTORL, 0);
+  analogWrite(MOTORR, 0);
 }
 
 // driveMotors drives 'motor' in 'dir' direction at 'spd' speed

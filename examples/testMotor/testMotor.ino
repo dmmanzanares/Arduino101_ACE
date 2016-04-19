@@ -5,12 +5,14 @@
 #include <CarDemo.h>
 
 CarDemo car;  // Create CarDemo library object
-int speed = FULLSPEED;  // speed setting (maximum is 255)
+int speed = HALFSPEED;  // speed setting (maximum is 255)
 
 void setup() {
   Serial.begin(115200);
   car.setupCar();  // setup all sensors and motors
-  
+}
+
+void loop() {
   Serial.println("  Forward");
   car.motorsWrite(speed, speed);  // both motors forward
   delay(1000);
@@ -27,9 +29,6 @@ void setup() {
   car.motorsWrite(-1*speed, -1*speed); // both motors backward (negative)
   delay(1000);
   car.stopMotors(); // stop both motors
-}
 
-void loop() {
-  // put your main code here, to run repeatedly:
-
+  while(!car.tilted()) { };  // wait until car it tilted again to resume
 }
