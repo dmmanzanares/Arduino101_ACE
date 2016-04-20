@@ -11,8 +11,8 @@ void setup() {
                               // Tilt the car to continue
   Serial.println("Car setup complete.");
   car.motorsWrite(255, 255);  // full speed ahead!!
-  delay(1500);                
-  car.stopMotors();           // stop motors after 1.5 seconds
+  delay(3000);
+  car.stopMotors();           // stop motors after 3 seconds
 }
 
 void loop() {

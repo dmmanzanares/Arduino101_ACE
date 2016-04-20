@@ -18,7 +18,7 @@ void setup() {
   car.playSong(Notes, Durations, Length);  // play the song
 }
 
-int carspeed = 255;  // full-speed speed (100% PWM duty cycle)
+int carspeed = HALFSPEED;  // full-speed speed (100% PWM duty cycle)
 
 void loop() {
   car.motorsWrite(carspeed, -1*carspeed); // spin in one direction

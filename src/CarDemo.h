@@ -80,6 +80,8 @@ class CarDemo {
 		Adafruit_NeoPixel strip;
 		Servo servo;
         
+        void fade(int speedL, int speedR);
+        
         // BLEPeripheral bleCarRemote;
         // BLEService ioService;
         // BLECharCharacteristic motorStateSwitchChrtc;
@@ -91,6 +93,8 @@ extern int encoderLValue;
 extern int encoderRValue;
 extern int encoderLStopCount;
 extern int encoderRStopCount;
+extern int motorLSpeed;
+extern int motorRSpeed;
 
 extern int FULLSPEED;
 extern int HALFSPEED;

@@ -27,7 +27,8 @@ int HALFSPEED = 127;
 // const byte MOTOR_A = 0;
 // const byte MOTOR_B = 1;
 // const byte MOTORS  = 2;
-
+int motorLSpeed;
+int motorRSpeed;
 
 // setupArdumoto initialize all pins
 void CarDemo::setupMotors()
@@ -44,6 +45,8 @@ void CarDemo::setupMotors()
   digitalWrite(DIRL, LOW);
   digitalWrite(DIRR, LOW);
   //Serial.println("  ...Motors ready for control");
+  motorLSpeed = 0;
+  motorLSpeed = 0;
 }
 
 void CarDemo::testMotors()
@@ -101,9 +104,11 @@ void CarDemo::motorsWrite(int speedL, int speedR)
   speedR = abs(speedR * motorRSkew);
   Serial.println(speedL);
   Serial.println(speedR);
-  analogWrite(MOTORL, speedL);
-  analogWrite(MOTORR, speedR);
-  //delay(mdelay); //run motors for this long
+  //analogWrite(MOTORL, speedL);
+  //analogWrite(MOTORR, speedR);
+  fade(speedL, speedR);  // move to new speeds in steps
+  motorLSpeed = speedL;  // update global L speed variable
+  motorRSpeed = speedR;  // update global R speed variable
 }
 
 void CarDemo::motorsWriteStep(int speedL, int speedR, int stepsL, int stepsR)
@@ -115,29 +120,24 @@ void CarDemo::motorsWriteStep(int speedL, int speedR, int stepsL, int stepsR)
 	motorsWrite(speedL, speedR);
 }
 
-// void fadein(byte motor, byte spd)
-// {
-  // // fade in from min to desired spd in increments of 5 points:
-  // for (int fadeValue = 0 ; fadeValue <= spd; fadeValue += 5)
-  // {
-    // // sets the value (range from 0 to 255):
-    // if (motor == MOTOR_A)
-    // {
-      // analogWrite(MOTORL, fadeValue);
-    // }
-    // else if (motor == MOTOR_B)
-    // {
-      // analogWrite(MOTORR, fadeValue);
-    // }
-    // else if (motor == MOTORS)
-    // {
-      // analogWrite(MOTORL, fadeValue);
-      // analogWrite(MOTORR, fadeValue);
-    // }
-    // // wait for 30 milliseconds to see the dimming effect
-    // delay(30);
-  // }
-// }
+void CarDemo::fade(int speedL, int speedR)
+{
+  // step amount to increase/decrease from current speeds
+  int diffL = (speedL - motorLSpeed) / 50;  // L step amount
+  int diffR = (speedR - motorRSpeed) / 50;  // R step amount
+  int spL = motorLSpeed;  // set initial step speed to current speed
+  int spR = motorRSpeed;  // set initial step speed to current speed
+  for (int i = 0; i < 50; i++)
+  {
+    spL += diffL;
+    spR += diffR;
+    analogWrite(MOTORL, spL);
+    analogWrite(MOTORR, spR); 
+    //delay(25);
+  }
+  analogWrite(MOTORL, speedL);  // ensure final speed is set
+  analogWrite(MOTORR, speedR);  // ensure final speed is set
+}
 // void forward(byte spd, int mdelay)
 // {
   // // Drive motor A  and B at various speeds, for a specified length of time
