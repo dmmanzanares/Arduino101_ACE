@@ -1,3 +1,4 @@
+#ifdef BLEINC
 //#include "BLE_Main.h"
 #include "CarDemo.h"
 
@@ -54,6 +55,6 @@ void motorStateSwitchChrtcWritten(BLECentral& central, BLECharacteristic & chara
 //    // code to stop motor
 //  }
 }
-
+#endif
 
 

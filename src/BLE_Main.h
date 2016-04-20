@@ -1,3 +1,4 @@
+#ifdef BLEINC
 #include <BLEAttribute.h>
 #include <BLECentral.h>
 #include <BLECharacteristic.h>
@@ -14,4 +15,4 @@
 void bleCarRemoteConnectHandler(BLECentral & central);
 void bleCarRemoteDisconnectHandler(BLECentral & central);
 void motorStateSwitchChrtcWritten(BLECentral& central, BLECharacteristic & characteristic);
-
+#endif

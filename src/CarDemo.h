@@ -2,7 +2,10 @@
 #define CARDEMO_H
 #include <Adafruit_NeoPixel.h>
 #include <Servo.h>
+#ifdef BLEINC
+#undef BLEINC
 #include "BLE_Main.h"
+#endif //DO NOT INCLUDE BLE
 #include "colors.h"
 
 class CarDemo {
@@ -50,10 +53,10 @@ class CarDemo {
         void setupEncoders();
 		//static void countL();
         //static void countR();
-        
+#ifdef BLEINC        
         void setupBLE();
         // void pollForConnect();
-		
+#endif		
 		float motorLSkew;
 		float motorRSkew;
 		
