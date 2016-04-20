@@ -34,6 +34,12 @@ void CarDemo::playNote(int note, int duration) {
     //e.g. quarter note = 1000 / 4, eighth note = 1000/8, etc.
     int noteDuration = 1000 / duration;
     tone(BUZZER, note, noteDuration);
+	
+	// to distinguish the notes, set a minimum time between them.
+    // the note's duration + 30% seems to work well:
+    int pauseBetweenNotes = noteDuration * 1.30;
+    delay(pauseBetweenNotes);
+	
     noTone(BUZZER);
 }
 

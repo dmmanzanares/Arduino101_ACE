@@ -2,10 +2,6 @@
 #define CARDEMO_H
 #include <Adafruit_NeoPixel.h>
 #include <Servo.h>
-#ifdef BLEINC
-#undef BLEINC
-#include "BLE_Main.h"
-#endif //DO NOT INCLUDE BLE
 #include "colors.h"
 
 class CarDemo {
@@ -20,6 +16,7 @@ class CarDemo {
 		void stopMotors();
 		void motorsWrite(int speedL, int speedR);
 		void motorsWriteStep(int speedL, int speedR, int stepsL, int stepsR);
+		void fade(int speedL, int speedR);
 		
 		// LED functions and variables  
 		void setupLED();
@@ -33,34 +30,34 @@ class CarDemo {
 		void setLED(int led, long color);
 		void testLED();
 		
+		// Proximity sensor functions
 		void setupProximity();
 		void testProximity();
 		float getRange();
 		bool checkObstacle(int minDist);
 		
+		// Servo functions
 		void setupServo();
 		void testServo();
 		void setServo(int angle);
         
-        void setupBuzzer();
+        // Buzzer functions
+		void setupBuzzer();
         void testBuzzer();
 		void playSong(int *notes, int *durations, int numnotes);
         void playNote(int note, int duration);
         
-        void setupMotion();
+        // Accelerometer functions
+		void setupMotion();
         bool tilted();
         
-        void setupEncoders();
-		//static void countL();
-        //static void countR();
-#ifdef BLEINC        
-        void setupBLE();
-        // void pollForConnect();
-#endif		
+        // Encoder functions
+		void setupEncoders();
+	
+		// Class member variables
 		float motorLSkew;
 		float motorRSkew;
-		
-	private:		
+				
 		//Motor Pin Assignments
 		byte MOTORL =  3; // PWM control pin (speed) for left motor 
 		byte MOTORR =  9; // PWM control pin (speed) for right motor   NOTE it is pin 11 on the Shield we have to jump 9 and 11 for Arduino 101
@@ -77,14 +74,9 @@ class CarDemo {
 		//LED RGB Pin assignments
 		byte LED       = 7;  // Only a Data pin is required on the addressable RGB LEDs
 		
+		private:
 		Adafruit_NeoPixel strip;
 		Servo servo;
-        
-        void fade(int speedL, int speedR);
-        
-        // BLEPeripheral bleCarRemote;
-        // BLEService ioService;
-        // BLECharCharacteristic motorStateSwitchChrtc;
 };
 
 void countL();

@@ -1,8 +1,6 @@
 #include <Adafruit_NeoPixel.h>
 #include "CarDemo.h"
 
-//namespace CarDemo {
-
 const byte NUMPIXELS = 4;  // number of RGB LEDs used
 
 // Addressable RGB LED definitions...like a NeoPixel
@@ -130,4 +128,3 @@ void CarDemo::testLED()
   delay(2000);
   clearLED();
 }
-//} // namespace

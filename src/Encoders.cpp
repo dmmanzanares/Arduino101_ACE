@@ -21,14 +21,8 @@ void CarDemo::setupEncoders()
 void countL()
 {
   encoderLValue++;
-  if ((encoderLStopCount != 0) && (encoderLValue >= encoderLStopCount)) {
-	  //obj.stopMotors();
-  }
 }
 void countR()
 {
   encoderRValue++;
-  if ((encoderRStopCount != 0) && (encoderRValue >= encoderRStopCount)) {
-	  //obj.stopMotors();
-  }
 }

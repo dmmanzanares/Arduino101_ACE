@@ -20,13 +20,12 @@
 // Depending on how you wired your motors, you may need to swap.
 const byte CW  = 0;
 const byte CCW = 1;
+
+// common motor speeds
 int FULLSPEED = 255;
 int HALFSPEED = 127;
 
-// Motor definitions to make life easier:
-// const byte MOTOR_A = 0;
-// const byte MOTOR_B = 1;
-// const byte MOTORS  = 2;
+// Global variables for current motor speed
 int motorLSpeed;
 int motorRSpeed;
 
@@ -44,14 +43,13 @@ void CarDemo::setupMotors()
   digitalWrite(MOTORR, LOW);
   digitalWrite(DIRL, LOW);
   digitalWrite(DIRR, LOW);
-  //Serial.println("  ...Motors ready for control");
   motorLSpeed = 0;
   motorLSpeed = 0;
 }
 
 void CarDemo::testMotors()
 {
-  int speed = 127;
+  int speed = HALFSPEED;
   Serial.println("Motor Test");
   Serial.println("  Forward");
   motorsWrite(speed, speed);
@@ -73,6 +71,9 @@ void CarDemo::stopMotors()
 {
   analogWrite(MOTORL, 0);
   analogWrite(MOTORR, 0);
+  // Update global speed variables
+  motorLSpeed = 0;   
+  motorLSpeed = 0;
 }
 
 // driveMotors drives 'motor' in 'dir' direction at 'spd' speed
@@ -94,12 +95,7 @@ void CarDemo::motorsWrite(int speedL, int speedR)
   {
     digitalWrite(DIRR, CCW); // forward 
   }
-  // else if (motor == MOTORS)
-  // {
-    // digitalWrite(DIRL, dir);
-    // digitalWrite(DIRR, dir);
-  // }
-  //fadein(motor, spd);
+
   speedL = abs(speedL * motorLSkew);
   speedR = abs(speedR * motorRSkew);
   Serial.println(speedL);
@@ -138,26 +134,3 @@ void CarDemo::fade(int speedL, int speedR)
   analogWrite(MOTORL, speedL);  // ensure final speed is set
   analogWrite(MOTORR, speedR);  // ensure final speed is set
 }
-// void forward(byte spd, int mdelay)
-// {
-  // // Drive motor A  and B at various speeds, for a specified length of time
-  // driveMotors(MOTORS, CW, spd, mdelay);  // Set motor A and B to CW at spd for mdelay time
-// }
-
-// void backward(byte spd, int mdelay)
-// {
-  // // Drive motor A  and B at various speeds, for a specified length of time
-  // driveMotors(MOTORS, CCW, spd, mdelay);  // Set motor A and B to CCW at spd for mdelay time
-// }
-// void right(byte spd, int mdelay)
-// {
-  // // Drive motor A  at various speeds, for a specified length of time
-  // driveMotors(MOTOR_A, CW, spd, mdelay);  // Set motor A to CW at spd for mdelay time
-// }
-
-// void left(byte spd, int mdelay)
-// {
-  // // Drive motor B at various speeds, for a specified length of time
-  // driveMotors(MOTOR_B, CW, spd, mdelay);  // Set motor B to CW at spd for mdelay time
-// }
-//} // namespace
