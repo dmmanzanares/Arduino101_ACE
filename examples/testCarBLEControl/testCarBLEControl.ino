@@ -21,71 +21,70 @@
 */
 
 
-#include "CarDemo.h"
 #include <CurieBLE.h>
+#include "CarDemo.h"
 
+BLEPeripheral blePeripheral; // create peripheral instance
 
-
-// Callback prototypes
-void bleCarRemoteConnectHandler(BLECentral & central);
-void bleCarRemoteDisconnectHandler(BLECentral & central);
-void motorStateSwitchChrtcWritten(BLECentral& central, BLECharacteristic & characteristic);
-
-//const int ctrlPin = 4;
-BLEPeripheral bleCarRemote;
 BLEService ioService("1815");
-BLECharCharacteristic motorStateSwitchChrtc("2A56", BLERead | BLEWrite );
+
+// create switch characteristic and allow remote device to read and write
+BLECharCharacteristic switchChar("2A56", BLERead | BLEWrite);
+
 CarDemo car;  // Create CarDemo library object
-int speed = FULLSPEED;  // speed setting (maximum is 255)
+int speed = HALFSPEED;  // speed setting (50% duty cycle)
 
 void setup() {
-  while (!Serial) {
-
-  }
   Serial.begin(115200);
+  car.setupCar();  // setup all sensors and motors
 
-  bleCarRemote.setLocalName("fnfCar");  //this is what the BLE app will connect too
-  bleCarRemote.setAdvertisedServiceUuid(ioService.uuid());
-  bleCarRemote.addAttribute(ioService); //You will see this as Control service -- name is standard
-  bleCarRemote.addAttribute(motorStateSwitchChrtc);  // this is the BLE data charcteristic that we will update in the client
-  motorStateSwitchChrtc.setValue(0);
+  // set the local name peripheral advertises
+  blePeripheral.setLocalName("fnfCar");
+  // set the UUID for the service this peripheral advertises
+  blePeripheral.setAdvertisedServiceUuid(ioService.uuid());
+
+  // add service and characteristic
+  blePeripheral.addAttribute(ioService);
+  blePeripheral.addAttribute(switchChar);
 
   // assign event handlers for connected, disconnected to peripheral
-  bleCarRemote.setEventHandler(BLEConnected, bleCarRemoteConnectHandler);  //tells we connected to a BLE app or master
-  bleCarRemote.setEventHandler(BLEDisconnected, bleCarRemoteDisconnectHandler);  //tells we connected
+  blePeripheral.setEventHandler(BLEConnected, blePeripheralConnectHandler);
+  blePeripheral.setEventHandler(BLEDisconnected, blePeripheralDisconnectHandler);
 
-  //callbacks for Switch Characteristic
-  motorStateSwitchChrtc.setEventHandler(BLEWritten, motorStateSwitchChrtcWritten);  //main call back that reacts to waht we right to the Digital characteristic in the app
-  //Serial.println("Waiting..");
-  bleCarRemote.begin();  //start BLE first before car setuo
-  car.setupCar();  // setup all sensors and motors
-  car.clearLED(); // turn all LEDs off
+  // assign event handlers for characteristic
+  switchChar.setEventHandler(BLEWritten, switchCharacteristicWritten);
+// set an initial value for the characteristic
+  switchChar.setValue(0);
 
+  // advertise the service
+  blePeripheral.begin();
+  Serial.println(("Bluetooth device active, waiting for connections..."));
 }
 
 void loop() {
-  // we can add a BLE notification chatcteristic to poll for encoder data
-  BLECentral central = bleCarRemote.central();  // waits for a connection
+  // poll peripheral
+  blePeripheral.poll();
 }
-// The next two callbacks are just to make us aware we connected
-void bleCarRemoteConnectHandler(BLECentral & central) {
+
+void blePeripheralConnectHandler(BLECentral& central) {
   // central connected event handler
   Serial.print("Connected event, central: ");
   Serial.println(central.address());
-
 }
 
-void bleCarRemoteDisconnectHandler(BLECentral & central) {
+void blePeripheralDisconnectHandler(BLECentral& central) {
   // central disconnected event handler
   Serial.print("Disconnected event, central: ");
   Serial.println(central.address());
 }
 
-void motorStateSwitchChrtcWritten(BLECentral& central, BLECharacteristic & characteristic) {
+void switchCharacteristicWritten(BLECentral& central, BLECharacteristic& characteristic) {
+  // central wrote new value to characteristic, update LED
+  Serial.print("Characteristic event, written: ");
   // BLE app wrote to our service here we have code that interprets those values
   // If they are not valid we don't call anything but we print them
   Serial.println("Characteristic event, Command written: ");
-  Serial.println(motorStateSwitchChrtc.value(), HEX);
+  Serial.println(switchChar.value(), HEX);
 
   /***** Command Codes  ***** /
       Write to the Control Characteritic on the Digital Value
@@ -99,21 +98,21 @@ void motorStateSwitchChrtcWritten(BLECentral& central, BLECharacteristic & chara
   */
 
   //Move forward
-  if ( motorStateSwitchChrtc.value() == 0x40 ) {
+  if ( switchChar.value() == 0x40 ) {
     Serial.println("Motor Start Command");
     car.motorsWrite(speed, speed);  // both motors forward
     delay(1000);
     car.stopMotors(); // stop both motors
   }
   // right
-  if ( motorStateSwitchChrtc.value() == 0x3F ) {
+  if ( switchChar.value() == 0x3F ) {
     Serial.println("Motor Right Command");
     car.motorsWrite(speed, -1 * speed); // left forward, right backward (negative)
     delay(1000);
     car.stopMotors(); // stop both motors
   }
   // left
-  if ( motorStateSwitchChrtc.value() == 0x2F ) {
+  if ( switchChar.value() == 0x2F ) {
     Serial.println("Motor Left Command");
     car.motorsWrite(-1 * speed, speed); // left backward (negative), right forward
     delay(1000);
@@ -121,7 +120,7 @@ void motorStateSwitchChrtcWritten(BLECentral& central, BLECharacteristic & chara
 
   }
   //Backward
-  if ( motorStateSwitchChrtc.value() == 0x30 ) {
+  if ( switchChar.value() == 0x30 ) {
     Serial.println("Motor Backward Command");
     car.motorsWrite(-1 * speed, -1 * speed); // both motors backward (negative)
     delay(1000);
@@ -130,19 +129,16 @@ void motorStateSwitchChrtcWritten(BLECentral& central, BLECharacteristic & chara
 
   //   Stop Motor Kill switch
   //Currently not working need to Ask Brian how to stop
-  if ( motorStateSwitchChrtc.value() == 0x11 ) {
+  if ( switchChar.value() == 0x11 ) {
     Serial.println("Motor STOP Command");
 
     car.stopMotors(); // stop both motors
   }
   // forward longer to demonstrate stop
-  if ( motorStateSwitchChrtc.value() == 0x4F ) {
+  if ( switchChar.value() == 0x4F ) {
     Serial.println("Motor Run Longer Command");
     car.motorsWrite(speed, speed);  // both motors forward
     delay(20000);
     car.stopMotors(); // stop both motors
   }
-
-
-
 }
