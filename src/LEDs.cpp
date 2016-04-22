@@ -15,6 +15,7 @@ const byte NUMPIXELS = 4;  // number of RGB LEDs used
 
 void CarDemo::setupLED()
 {
+  pinMode(extLED, OUTPUT);
   //Serial.print("Adressable RGB LED Setup...");
   strip = Adafruit_NeoPixel(NUMPIXELS, LED, NEO_GRB + NEO_KHZ800);
   strip.begin();
@@ -24,6 +25,8 @@ void CarDemo::setupLED()
 
 void CarDemo::clearLED()
 {
+
+  digitalWrite(extLED, LOW);
   for (int l = 0; l < NUMPIXELS; l++)
   {
     strip.setPixelColor(l, strip.Color(0, 0, 0));
@@ -86,6 +89,7 @@ void CarDemo::startingLED()
   for (int t = 0; t < 8; t++) {
     clearLED(); // Initialize all pixels to 'off'
     delay(250);
+    digitalWrite(extLED, HIGH);
     for (int l = 0; l < NUMPIXELS; l++)
     {
       strip.setPixelColor(l, strip.Color(255, 0, 0));

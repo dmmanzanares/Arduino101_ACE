@@ -38,15 +38,28 @@ void CarDemo::setupCar() {
   //setupServo();
   // Proximity Setup
   setupProximity();
-  
+
   motorLSkew = 1.0;  // 100% = no skew
   motorRSkew = 1.0;  // 100% = no skew
-  
+
   pauseLED(); // turn on LEDs in 'paused' (blue) mode
-  
+
   while (!tilted()) {
     delay(10);
   }
+  startingLED(); // indicate car is starting
+  Serial.println("\n\nCar activated - starting test.\n");
+  clearLED();
+}
+
+void CarDemo::pauseCar()
+{
+  stopMotors();
+  pauseLED(); // turn on LEDs in 'paused' (blue) mode
+  while (!tilted()) {
+    delay(10);
+  }
+  Serial.println("\n\nCar activated - starting test.\n");
   startingLED(); // indicate car is starting
   Serial.println("\n\nCar activated - starting test.\n");
   clearLED();
