@@ -25,11 +25,16 @@ float CarDemo::getRange()
 {
     float total = 0;
     int n;
-    for (n = 0; n < 30; n++)
+    float max = 0.0;
+    for (n = 0; n < 5; n++)
     {
       total = total + analogRead(PROXIMITY);
+      if (n > max) {
+          max = n;
+      }
     }
-    float distance = total / (float) n;
+    total = total - max;    // ignore highest value 
+    float distance = total / (float) (n-1);  // take the average
     float volts = distance*0.0048828125;  // value from sensor * (5/1024)
     distance = 13*pow(volts, -1); // worked out from datasheet graph
 	return distance;
