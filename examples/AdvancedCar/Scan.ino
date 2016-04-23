@@ -30,21 +30,21 @@ void moveLR(int turntime) {
 
   // back up to the right or left or center
   if (bestdir == RIGHT) {
-      //car.motorsWrite(-1*HALFSPEED, 0); // back to the right
-      car.motorsWrite(0, -1*HALFSPEED); // back to the right
+      //car.motorsWrite(-1*carspeed, 0); // back to the right
+      car.motorsWrite(0, -1*carspeed); // back to the right
       delay(turntime);
       //delay(900);
-      //car.motorsWrite(0, -1*HALFSPEED); // back to the left
+      //car.motorsWrite(0, -1*carspeed); // back to the left
       //delay(1000);
   } else if (bestdir == LEFT){
-      //car.motorsWrite(0, -1*HALFSPEED); // back to the left
-      car.motorsWrite(-1*HALFSPEED, 0); // back to the right
+      //car.motorsWrite(0, -1*carspeed); // back to the left
+      car.motorsWrite(-1*carspeed, 0); // back to the right
       delay(turntime);
       //delay(900);
-      //car.motorsWrite(-1*HALFSPEED, 0); // back to the right
+      //car.motorsWrite(-1*carspeed, 0); // back to the right
       //delay(1000);
   } else {
-      car.motorsWrite(-1*HALFSPEED, -1*HALFSPEED); // back up straight
+      car.motorsWrite(-1*carspeed, -1*carspeed); // back up straight
       delay(turntime);
   }
   car.stopMotors();

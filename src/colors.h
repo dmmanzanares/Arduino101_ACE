@@ -3,6 +3,7 @@
 #define LIME	0XFF0000	
 #define BLUE	0X0000FF	
 #define YELLOW	0XFFFF00	
+#define ORANGE  0XA5FF00
 #define CYAN 	0XFF00FF	
 #define MAGENTA 0X00FFFF	
 #define SILVER	0XC0C0C0	
